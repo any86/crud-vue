@@ -35,7 +35,7 @@ import {
 import Add from './Curd/Add.vue';
 import Edit from './Curd/Edit.vue';
 import NForm from './Curd/NForm.vue';
-import type { CProps, DProps, RProps, UProps, KV } from '@/components/Curd/Types';
+import type { CProps, DProps, RProps, UProps, KV } from './Curd/Types';
 
 interface Props {
   primaryKey: string;

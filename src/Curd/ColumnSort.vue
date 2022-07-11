@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import cloneDeep from 'lodash/cloneDeep';
-import { reactive, ref, toRaw, watch } from 'vue';
+import { ref, toRaw } from 'vue';
 import type { AntTreeNodeDropEvent } from 'ant-design-vue/es/tree';
-import { walkTree } from '@/shared';
+import { walkTree } from '../shared';
 import { SettingOutlined } from '@ant-design/icons-vue';
-import { ColumnsType } from 'ant-design-vue/lib/table';
 type Node = { [k: string]: any; title: string; key: string; children?: Node[] };
 type Tree = Node[];
 
