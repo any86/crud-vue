@@ -25,7 +25,8 @@ export default defineConfig({
     }
   },
   plugins: [vue(), dts({
-    insertTypesEntry: true, copyDtsFiles: false
+    insertTypesEntry: true, copyDtsFiles: false,
+    skipDiagnostics: false, logDiagnostics: true
   })],
   resolve: {
     alias: {

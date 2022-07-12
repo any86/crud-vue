@@ -1,7 +1,7 @@
-import { ref, type Ref } from 'vue'
+import { ref} from 'vue'
 import to from 'await-to-js';
 import { message } from 'ant-design-vue';
-import NForm from './NForm.vue';
+import NForm from '@/Curd/NForm.vue';
 import { cloneDeep } from 'lodash';
 import type { CProps, DProps, RProps, UProps, KV } from '@/types';
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type FormProps} from 'ant-design-vue';
-import NForm from './NForm.vue';
+import NForm from '@/Curd/NForm.vue';
 import { useForm } from '@/shared';
 import type { CProps, NFormItem, KV } from '@/types';
 
