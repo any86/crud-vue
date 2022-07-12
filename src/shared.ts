@@ -2,9 +2,8 @@ import { ref, type Ref } from 'vue'
 import to from 'await-to-js';
 import { message } from 'ant-design-vue';
 import NForm from './NForm.vue';
-import type { CProps, KV } from '@/types';
 import { cloneDeep } from 'lodash';
-
+import type { CProps, DProps, RProps, UProps, KV } from '@/types';
 
 
 export function useForm(done: CProps['done'], onSuccess: (formData: KV) => void, onFail: (error: string) => void, onReset = () => { }) {
@@ -99,3 +98,19 @@ export function walkTree<Node extends { children?: Node[] }>(nodes: Node[], each
         }
     }
 }
+
+export function defineC(config: CProps): CProps {
+    return config;
+  }
+  
+  export function defineU(config: UProps): UProps {
+    return config;
+  }
+  
+  export function defineR(config: RProps): RProps {
+    return config;
+  }
+  
+  export function defineD(config: DProps): DProps {
+    return config;
+  }

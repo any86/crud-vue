@@ -1,6 +1,6 @@
 {
   "name": "v-curd",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main":"dist/v-curd.es.js",
   "module": "dist/v-curd.es.js",
   "types": "dist/main.d.ts",
