@@ -5,8 +5,6 @@ export interface KV<T = any> {
   [k: string | number]: T;
 }
 
-
-
 export interface NFormItem extends FormItemProps {
   is: string | VNode | C1;
   name?: string;

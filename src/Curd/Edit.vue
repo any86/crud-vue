@@ -2,9 +2,9 @@
 import { ref } from 'vue';
 import { type FormProps } from 'ant-design-vue';
 import { ArrowRightOutlined } from '@ant-design/icons-vue';
-import { useForm } from './shared';
+import { useForm } from '@/shared';
 import NForm from './NForm.vue';
-import type { UProps, KV, NFormItem } from './Types';
+import type { UProps, KV, NFormItem } from '@/types';
 interface Props extends UProps {
   modelValue: KV;
   formProps?: FormProps;
