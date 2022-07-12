@@ -1066,18 +1066,6 @@ function walkTree(nodes, each) {
     }
   }
 }
-function defineC(config) {
-  return config;
-}
-function defineU(config) {
-  return config;
-}
-function defineR(config) {
-  return config;
-}
-function defineD(config) {
-  return config;
-}
 var ColumnSort_vue_vue_type_style_index_0_lang = "";
 const _hoisted_1$3 = { class: "d-flex align-items-center" };
 const _hoisted_2$3 = /* @__PURE__ */ createElementVNode("span", { class: "flex-1" }, "\u5217\u8BBE\u7F6E", -1);
@@ -1975,4 +1963,16 @@ const _sfc_main = defineComponent({
     };
   }
 });
-export { _sfc_main as default, defineC, defineD, defineR, defineU, useForm, walkTree };
+function defineC(config) {
+  return config;
+}
+function defineU(config) {
+  return config;
+}
+function defineR(config) {
+  return config;
+}
+function defineD(config) {
+  return config;
+}
+export { _sfc_main as default, defineC, defineD, defineR, defineU };
