@@ -1,21 +1,13 @@
-import Curd from '@/Curd.vue'
-export * from '@/types';
-import type { CProps, UProps, RProps, DProps } from '@/types';
+import App from '@/App.vue'
+import { createApp } from 'vue'
+// 加载UI库, 引入后组件会被全局注册, 我们在任意组件内都可以直接使用
+import Antd from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.less'
+import '@5a.css/reset';
+import '@5a.css/helpers';
+// import '@/assets/iconfont/iconfont.css'
 
-export function defineC(config: CProps): CProps {
-    return config;
-}
-
-export function defineU(config: UProps): UProps {
-    return config;
-}
-
-export function defineR(config: RProps): RProps {
-    return config;
-}
-
-export function defineD(config: DProps): DProps {
-    return config;
-}
-
-export default Curd;
+const app = createApp(App);
+// 加载UI
+app.use(Antd);
+app.mount('#app');

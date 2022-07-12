@@ -56,7 +56,6 @@ function toggleTableFull() {
 
 // 显示前
 const isLoading = ref(false);
-
 const columnConfig = ref(cloneDeep(props.r.columns)!);
 function changeColumns(columns: any) {
   columnConfig.value = columns;

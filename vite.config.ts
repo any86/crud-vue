@@ -7,7 +7,7 @@ import dts from 'vite-plugin-dts'
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/main.ts'),
+      entry: resolve(__dirname, 'src/lib.ts'),
       name: 'v-curd',
       formats: ['es'],
       // the proper extensions will be added
@@ -28,6 +28,13 @@ export default defineConfig({
     insertTypesEntry: true, copyDtsFiles: false,
     skipDiagnostics: false, logDiagnostics: true
   })],
+  css: {
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true,
+      },
+    }
+  },
   resolve: {
     alias: {
       "@": resolve(__dirname, "./src"),

@@ -1,15 +1,16 @@
 {
   "name": "v-curd",
   "version": "0.0.7",
-  "main":"dist/v-curd.es.js",
+  "main": "dist/v-curd.es.js",
   "module": "dist/v-curd.es.js",
-  "types": "dist/main.d.ts",
+  "types": "dist/lib.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "5a.css": "^0.1.20",
     "@ant-design/icons-vue": "^6.1.0",
     "@types/node": "^18.0.3",
     "ant-design-vue": "^3.2.10",
@@ -20,8 +21,11 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@any86/array-to-tree": "^0.1.1",
     "@types/lodash": "^4.14.182",
     "@vitejs/plugin-vue": "^2.3.3",
+    "axios": "^0.27.2",
+    "less": "^4.1.3",
     "sass": "^1.53.0",
     "typescript": "^4.5.4",
     "vite": "^2.9.9",
