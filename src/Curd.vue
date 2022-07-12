@@ -25,20 +25,19 @@ import type { CProps, DProps, RProps, UProps, KV } from "@/types";
 
 interface Props {
   primaryKey: string;
-
-  onBeforeMount?: () => Promise<unknown>;
-
-  exportExcel?: {
-    done: (condition: KV) => Promise<KV[]>;
-  };
+  
+  r: RProps;
 
   c?: CProps;
 
   u?: UProps;
 
-  r: RProps;
-
   d?: DProps;
+  onBeforeMount?: () => Promise<unknown>;
+
+  exportExcel?: {
+    done: (condition: KV) => Promise<KV[]>;
+  };
 }
 
 // 表格需要的数据源
