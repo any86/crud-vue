@@ -1540,12 +1540,12 @@ const _sfc_main = defineComponent({
   __name: "Curd",
   props: {
     primaryKey: null,
-    onBeforeMount: null,
-    exportExcel: null,
+    r: null,
     c: null,
     u: null,
-    r: null,
-    d: null
+    d: null,
+    onBeforeMount: null,
+    exportExcel: null
   },
   emits: ["remove-fail"],
   setup(__props, { emit }) {
@@ -1592,7 +1592,7 @@ const _sfc_main = defineComponent({
       },
       onShowSizeChange: onPageSizeChange
     }));
-    const tableSize = ref((_a = props.r.tableProps) == null ? void 0 : _a.size);
+    const tableSize = ref(((_a = props.r.tableProps) == null ? void 0 : _a.size) || "default");
     const otherTableProps = computed(() => {
       const { r, primaryKey } = props;
       return {

@@ -7,7 +7,7 @@
 ```vue
 <script setup lang="ts">
 import curd from "v-curd";
-const primaryKey = "xxId";
+const primaryKey = "id";
 const r = defineR({
   columns: [
     {
