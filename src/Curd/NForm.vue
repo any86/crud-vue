@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { reactive, ref, watch, computed, useAttrs } from 'vue';
+import { ref, watch } from 'vue';
 import type { FormInstance, FormProps } from 'ant-design-vue';
-import type { NFormItem, KV } from '@/types';
-import { cloneDeep } from 'lodash';
+import type { NFormItem, KV } from './Types';
+import cloneDeep from 'lodash/cloneDeep';
+import { computed } from 'vue';
 
 interface Props {
   modelValue: KV;
@@ -15,16 +16,17 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const isLoading = ref(true);
-let formData = reactive<KV>(props.modelValue || {});
+const formData = ref<KV>(props.modelValue || {});
 const defaultValueMap: KV = !!props.modelValue ? cloneDeep(props.modelValue) : {};
+watch(
+  () => props.modelValue,
+  (modelValue) => {
+    formData.value = cloneDeep(modelValue);
+  }
+);
 
 // 结构数据
-const formItems = computed(() => props.items(formData));
-const isInlineLayout = computed(() => {
-  const attrs = useAttrs();
-  return [props.formProps?.layout, attrs.layout].includes('inline');
-});
-
+const formItems = computed(() => props.items(formData.value));
 watch(
   formItems,
   (formItems) => {
@@ -34,8 +36,8 @@ watch(
           console.warn('表单组件缺少name字段');
         } else {
           // 同步items配置中设置的默认值
-          formData[item.name] = formData[item.name] || item.defaultValue;
-          defaultValueMap[item.name] = formData[item.name];
+          formData.value[item.name] = formData.value[item.name] || item.defaultValue;
+          defaultValueMap[item.name] = formData.value[item.name];
         }
       }
     });
@@ -58,8 +60,7 @@ function getVModelName(item: NFormItem) {
  * 重置表单
  */
 async function reset() {
-  // formData = cloneDeep(defaultValueMap);
-
+  formData.value = cloneDeep(defaultValueMap);
   // console.log(formRef.value?.scrollToField);
   // formRef.value?.scrollToField('mouldName')
   formRef.value?.resetFields();
@@ -75,30 +76,26 @@ defineExpose({ formRef, reset, toggleItem });
 
 <template>
   <!-- {{ formData }} -->
-  <a-form v-if="!isLoading && void 0 !== formData" ref="formRef" :model="formData"  v-bind="formProps" scrollToFirstError>
-    <a-row>
-      <template v-for="item in formItems" :key="item.name">
-        <a-col :span="isInlineLayout ? void 0 : item?.span || 24">
-          <a-form-item v-if="!('toggle' in item && !isShowFormItem)" colon :id="item.name" v-bind="item">
-            <!-- {{formData[item.name]}} -->
-            <!-- 表单类的组件 -->
-            <component
-              v-if="item.name"
-              :is="item.is"
-              v-bind="{
-                allowClear: true,
-                placeholder: `请输入${item.label || ''}`,
-                ...item.props,
-              }"
-              v-model:[getVModelName(item)]="formData[item.name as string]"
-            >
-            </component>
-            <!-- 纯显示组件 -->
-            <component v-else :is="item.is" v-bind="item.props"></component>
-          </a-form-item>
-        </a-col>
-      </template>
-    </a-row>
+  <a-form v-if="!isLoading && void 0 !== formData" ref="formRef" :model="formData" v-bind="formProps">
+    <template v-for="item in formItems" :key="item.name">
+      <a-form-item v-if="!('toggle' in item && !isShowFormItem)" colon :id="item.name" v-bind="item">
+        <!-- {{formData[item.name]}} -->
+        <!-- 表单类的组件 -->
+        <component
+          v-if="item.name"
+          :is="item.is"
+          v-bind="{
+            allowClear: true,
+            placeholder: `请输入${item.label || ''}`,
+            ...item.props,
+          }"
+          v-model:[getVModelName(item)]="formData[item.name as string]"
+        >
+        </component>
+        <!-- 纯显示组件 -->
+        <component v-else :is="item.is" v-bind="item.props"></component>
+      </a-form-item>
+    </template>
     <slot name="after"></slot>
   </a-form>
 </template>
