@@ -12,11 +12,9 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
-    "baseUrl":".",
     "paths": {
       "@/*": ["./src/*"],
-      "@c/*": ["./src/components*"],
-      "ant-design-vue": ["node_modules/ant-design-vue"]
+      "@c/*": ["./src/components*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],

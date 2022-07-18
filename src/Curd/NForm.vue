@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import type { FormInstance, FormProps } from 'ant-design-vue';
-import type { NFormItem, KV } from './Types';
+import type { NFormItem, KV } from '@/types';
 import cloneDeep from 'lodash/cloneDeep';
 import { computed } from 'vue';
 

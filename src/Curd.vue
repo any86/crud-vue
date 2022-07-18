@@ -9,7 +9,7 @@ import { ref, reactive, watch, computed, onBeforeMount } from "vue";
 import { toggleFull } from "be-full";
 import { message } from "ant-design-vue";
 import * as xlsx from "xlsx";
-import ColumnSort from "./Curd/ColumnSort.vue";
+import ColumnSort from "@/Curd/ColumnSort.vue";
 import {
   EyeOutlined,
   EditOutlined,

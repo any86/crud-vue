@@ -4,7 +4,7 @@ import { ref, toRaw } from 'vue';
 import type { AntTreeNodeDropEvent } from 'ant-design-vue/es/tree';
 import { walkTree } from '@/shared';
 import { SettingOutlined } from '@ant-design/icons-vue';
-type Node = { [k: string]: any; title: string; key: string; children?: Node[] };
+type Node = { [k: string]: any; title: string; key: string; children?: any[] };
 type Tree = Node[];
 
 interface Props {

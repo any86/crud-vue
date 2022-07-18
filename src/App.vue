@@ -46,16 +46,16 @@ const r = defineR({
       ],
     },
 
-    {
-      title: "状态",
-      customRender({ record }: any) {
-        if (1 === record.state) {
-          return h(Tag, { color: "success" }, () => `开启`);
-        } else {
-          return h(Tag, { color: "error" }, () => `关闭`);
-        }
-      },
-    },
+    // {
+    //   title: "状态",
+    //   customRender({ record }: any) {
+    //     if (1 === record.state) {
+    //       return h(Tag, { color: "success" }, () => `开启`);
+    //     } else {
+    //       return h(Tag, { color: "error" }, () => `关闭`);
+    //     }
+    //   },
+    // },
 
     {
       title: "操作",

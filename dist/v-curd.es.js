@@ -1,4 +1,4 @@
-import { ref, defineComponent, toRaw, resolveComponent, openBlock, createBlock, withCtx, createElementVNode, createVNode, unref, createTextVNode, reactive, computed, useAttrs, watch, mergeProps, createElementBlock, Fragment, renderList, resolveDynamicComponent, normalizeProps, createCommentVNode, renderSlot, isRef, createSlots, onBeforeMount, guardReactiveProps, withDirectives, toDisplayString, vShow } from "vue";
+import { ref, defineComponent, toRaw, resolveComponent, openBlock, createBlock, withCtx, createElementVNode, createVNode, unref, createTextVNode, watch, computed, mergeProps, createElementBlock, Fragment, renderList, resolveDynamicComponent, normalizeProps, createCommentVNode, renderSlot, isRef, createSlots, onBeforeMount, reactive, guardReactiveProps, withDirectives, toDisplayString, vShow } from "vue";
 import { SettingOutlined, ArrowRightOutlined, PlusOutlined, CloudDownloadOutlined, RedoOutlined, SearchOutlined, UpOutlined, DownOutlined, EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons-vue";
 import { cloneDeep as cloneDeep$1 } from "lodash";
 import "be-full";
@@ -1227,22 +1227,20 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
   setup(__props, { expose }) {
     const props = __props;
     const isLoading = ref(true);
-    let formData = reactive(props.modelValue || {});
-    const defaultValueMap = !!props.modelValue ? cloneDeep$1(props.modelValue) : {};
-    const formItems = computed(() => props.items(formData));
-    const isInlineLayout = computed(() => {
-      var _a;
-      const attrs = useAttrs();
-      return [(_a = props.formProps) == null ? void 0 : _a.layout, attrs.layout].includes("inline");
+    const formData = ref(props.modelValue || {});
+    const defaultValueMap = !!props.modelValue ? cloneDeep_1(props.modelValue) : {};
+    watch(() => props.modelValue, (modelValue) => {
+      formData.value = cloneDeep_1(modelValue);
     });
+    const formItems = computed(() => props.items(formData.value));
     watch(formItems, (formItems2) => {
       formItems2.forEach((item) => {
         if (void 0 !== item.defaultValue) {
           if (void 0 === item.name) {
             console.warn("\u8868\u5355\u7EC4\u4EF6\u7F3A\u5C11name\u5B57\u6BB5");
           } else {
-            formData[item.name] = formData[item.name] || item.defaultValue;
-            defaultValueMap[item.name] = formData[item.name];
+            formData.value[item.name] = formData.value[item.name] || item.defaultValue;
+            defaultValueMap[item.name] = formData.value[item.name];
           }
         }
       });
@@ -1254,6 +1252,7 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
     }
     async function reset() {
       var _a;
+      formData.value = cloneDeep_1(defaultValueMap);
       (_a = formRef.value) == null ? void 0 : _a.resetFields();
     }
     const isShowFormItem = ref(false);
@@ -1263,48 +1262,37 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
     expose({ formRef, reset, toggleItem });
     return (_ctx, _cache) => {
       const _component_a_form_item = resolveComponent("a-form-item");
-      const _component_a_col = resolveComponent("a-col");
-      const _component_a_row = resolveComponent("a-row");
       const _component_a_form = resolveComponent("a-form");
-      return !isLoading.value && void 0 !== unref(formData) ? (openBlock(), createBlock(_component_a_form, mergeProps({
+      return !isLoading.value && void 0 !== formData.value ? (openBlock(), createBlock(_component_a_form, mergeProps({
         key: 0,
         ref_key: "formRef",
         ref: formRef,
-        model: unref(formData)
-      }, __props.formProps, { scrollToFirstError: "" }), {
+        model: formData.value
+      }, __props.formProps), {
         default: withCtx(() => [
-          createVNode(_component_a_row, null, {
-            default: withCtx(() => [
-              (openBlock(true), createElementBlock(Fragment, null, renderList(unref(formItems), (item) => {
-                return openBlock(), createBlock(_component_a_col, {
-                  key: item.name,
-                  span: unref(isInlineLayout) ? void 0 : (item == null ? void 0 : item.span) || 24
-                }, {
-                  default: withCtx(() => [
-                    !("toggle" in item && !isShowFormItem.value) ? (openBlock(), createBlock(_component_a_form_item, mergeProps({
-                      key: 0,
-                      colon: "",
-                      id: item.name
-                    }, item), {
-                      default: withCtx(() => [
-                        item.name ? (openBlock(), createBlock(resolveDynamicComponent(item.is), mergeProps({ key: 0 }, {
-                          allowClear: true,
-                          placeholder: `\u8BF7\u8F93\u5165${item.label || ""}`,
-                          ...item.props
-                        }, {
-                          [getVModelName(item)]: unref(formData)[item.name],
-                          ["onUpdate:" + getVModelName(item)]: ($event) => unref(formData)[item.name] = $event
-                        }), null, 16)) : (openBlock(), createBlock(resolveDynamicComponent(item.is), normalizeProps(mergeProps({ key: 1 }, item.props)), null, 16))
-                      ]),
-                      _: 2
-                    }, 1040, ["id"])) : createCommentVNode("", true)
-                  ]),
-                  _: 2
-                }, 1032, ["span"]);
-              }), 128))
-            ]),
-            _: 1
-          }),
+          (openBlock(true), createElementBlock(Fragment, null, renderList(unref(formItems), (item) => {
+            return openBlock(), createElementBlock(Fragment, {
+              key: item.name
+            }, [
+              !("toggle" in item && !isShowFormItem.value) ? (openBlock(), createBlock(_component_a_form_item, mergeProps({
+                key: 0,
+                colon: "",
+                id: item.name
+              }, item), {
+                default: withCtx(() => [
+                  item.name ? (openBlock(), createBlock(resolveDynamicComponent(item.is), mergeProps({ key: 0 }, {
+                    allowClear: true,
+                    placeholder: `\u8BF7\u8F93\u5165${item.label || ""}`,
+                    ...item.props
+                  }, {
+                    [getVModelName(item)]: formData.value[item.name],
+                    ["onUpdate:" + getVModelName(item)]: ($event) => formData.value[item.name] = $event
+                  }), null, 16)) : (openBlock(), createBlock(resolveDynamicComponent(item.is), normalizeProps(mergeProps({ key: 1 }, item.props)), null, 16))
+                ]),
+                _: 2
+              }, 1040, ["id"])) : createCommentVNode("", true)
+            ], 64);
+          }), 128)),
           renderSlot(_ctx.$slots, "after")
         ]),
         _: 3
