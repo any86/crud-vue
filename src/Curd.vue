@@ -49,6 +49,7 @@ type tableData = {
 const props = defineProps<Props>();
 const emit = defineEmits<{
   (type: "remove-fail", error: unknown): void;
+  (type:'show-one', one:unknown):void;
 }>();
 
 const tableRef = ref();
@@ -211,6 +212,7 @@ async function showOne(row: KV) {
   isOneLoading.value = true;
   oneData.value = await props.r.getOne!(row);
   isOneLoading.value = false;
+  emit('show-one', row);
 }
 
 // 导出表格
