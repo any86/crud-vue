@@ -1,4 +1,4 @@
-import type { CProps, KV } from './types';
+import type { CProps, DProps, RProps, UProps, KV } from './types';
 export declare function useForm(done: CProps['done'], onSuccess: (formData: KV) => void, onFail: (error: string) => void, onReset?: () => void): {
     nFormRef: import("vue").Ref<import("vue").DefineComponent<{
         modelValue: {
@@ -200,3 +200,7 @@ export declare function useForm(done: CProps['done'], onSuccess: (formData: KV) 
 export declare function walkTree<Node extends {
     children?: Node[];
 }>(nodes: Node[], each: (node: Node) => void): void;
+export declare function defineC(config: CProps): CProps;
+export declare function defineU(config: UProps): UProps;
+export declare function defineR(config: RProps): RProps;
+export declare function defineD(config: DProps): DProps;

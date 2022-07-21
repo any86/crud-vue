@@ -1,8 +1,4 @@
 import type { CProps, DProps, RProps, UProps, KV } from './types';
-export declare function defineC(config: CProps): CProps;
-export declare function defineU(config: UProps): UProps;
-export declare function defineR(config: RProps): RProps;
-export declare function defineD(config: DProps): DProps;
 declare const _sfc_main: import("vue").DefineComponent<{
     primaryKey: {
         type: StringConstructor;
@@ -33,10 +29,6 @@ declare const _sfc_main: import("vue").DefineComponent<{
         required: false;
     };
 }, {
-    defineC: typeof defineC;
-    defineU: typeof defineU;
-    defineR: typeof defineR;
-    defineD: typeof defineD;
     props: {
         primaryKey: string;
         r: RProps;
@@ -50,7 +42,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
     };
     emit: {
         (type: "remove-fail", error: unknown): void;
-        (type: 'show-one', one: KV): void;
+        (type: "show-one", one: KV): void;
     };
     tableRef: import("vue").Ref<any>;
     toggleTableFull: () => void;
