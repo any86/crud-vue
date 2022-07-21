@@ -38,7 +38,7 @@ export function useForm(done: CProps['done'], onSuccess: (formData: KV) => void,
                 return;
             }
             if (!Array.isArray(data1)) {
-                throw '"检查done"的返回值格式,预期[number,string]!';
+                throw '"请检查done"函数的返回值格式,预期[boolean,string]!';
             }
 
             const [isSuccess, msg] = data1;
