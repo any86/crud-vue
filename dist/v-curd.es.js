@@ -1539,13 +1539,19 @@ const _hoisted_11 = /* @__PURE__ */ createTextVNode("\u5220\u9664");
 const _sfc_main = defineComponent({
   __name: "Curd",
   props: {
-    primaryKey: null,
-    r: null,
-    c: null,
-    u: null,
-    d: null,
-    onBeforeMount: null,
-    exportExcel: null
+    primaryKey: {
+      type: String,
+      required: true
+    },
+    r: {
+      type: Object,
+      required: true
+    },
+    c: Object,
+    u: Object,
+    d: Object,
+    onBeforeMount: Function,
+    exportExcel: Object
   },
   emits: ["remove-fail", "show-one"],
   setup(__props, { emit }) {

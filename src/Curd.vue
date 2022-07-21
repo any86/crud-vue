@@ -5,7 +5,14 @@ import {
   DownOutlined,
 } from "@ant-design/icons-vue";
 import { cloneDeep } from "lodash";
-import { ref, reactive, watch, computed, onBeforeMount } from "vue";
+import {
+  ref,
+  reactive,
+  watch,
+  computed,
+  onBeforeMount,
+  type PropType,
+} from "vue";
 import { toggleFull } from "be-full";
 import { message } from "ant-design-vue";
 import * as xlsx from "xlsx";
@@ -23,30 +30,32 @@ import Edit from "./Curd/Edit.vue";
 import NForm from "./Curd/NForm.vue";
 import type { CProps, DProps, RProps, UProps, KV } from "@/types";
 
-interface Props {
-  primaryKey: string;
-
-  r: RProps;
-
-  c?: CProps;
-
-  u?: UProps;
-
-  d?: DProps;
-  onBeforeMount?: () => Promise<unknown>;
-
-  exportExcel?: {
-    done: (condition: KV) => Promise<KV[]>;
-  };
-}
-
 // 表格需要的数据源
 type tableData = {
   list: { [k: string]: unknown }[];
   total: string;
 };
 
-const props = defineProps<Props>();
+// 为了能正确的生成d.ts,
+// 此处必须用js逻辑去定义props,
+// 并且要保证存在"props"变量
+const props = defineProps({
+  primaryKey: {
+    type: String,
+    required: true,
+  },
+  r: {
+    type: Object as PropType<RProps>,
+    required: true,
+  },
+  c: Object as PropType<CProps>,
+  u: Object as PropType<UProps>,
+  d: Object as PropType<DProps>,
+  onBeforeMount: Function as PropType<() => Promise<unknown>>,
+  exportExcel: Object as PropType<{
+    done: (condition: KV) => Promise<KV[]>;
+  }>,
+});
 const emit = defineEmits<{
   (type: "remove-fail", error: unknown): void;
   (type: "show-one", one: KV): void;

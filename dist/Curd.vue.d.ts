@@ -1,3 +1,4 @@
+import { type PropType } from "vue";
 import type { CProps, DProps, RProps, UProps, KV } from './types';
 declare const _sfc_main: import("vue").DefineComponent<{
     primaryKey: {
@@ -5,41 +6,37 @@ declare const _sfc_main: import("vue").DefineComponent<{
         required: true;
     };
     r: {
-        type: null;
+        type: PropType<RProps>;
         required: true;
     };
-    c: {
-        type: null;
-        required: false;
-    };
-    u: {
-        type: null;
-        required: false;
-    };
-    d: {
-        type: null;
-        required: false;
-    };
-    onBeforeMount: {
-        type: FunctionConstructor;
-        required: false;
-    };
-    exportExcel: {
-        type: ObjectConstructor;
-        required: false;
-    };
+    c: PropType<CProps>;
+    u: PropType<UProps>;
+    d: PropType<DProps>;
+    onBeforeMount: PropType<() => Promise<unknown>>;
+    exportExcel: PropType<{
+        done: (condition: KV) => Promise<KV[]>;
+    }>;
 }, {
-    props: {
-        primaryKey: string;
-        r: RProps;
-        c?: CProps | undefined;
-        u?: UProps | undefined;
-        d?: DProps | undefined;
-        onBeforeMount?: (() => Promise<unknown>) | undefined;
-        exportExcel?: {
+    props: Readonly<import("_@vue_shared@3.2.37@@vue/shared").LooseRequired<Readonly<import("vue").ExtractPropTypes<{
+        primaryKey: {
+            type: StringConstructor;
+            required: true;
+        };
+        r: {
+            type: PropType<RProps>;
+            required: true;
+        };
+        c: PropType<CProps>;
+        u: PropType<UProps>;
+        d: PropType<DProps>;
+        onBeforeMount: PropType<() => Promise<unknown>>;
+        exportExcel: PropType<{
             done: (condition: KV) => Promise<KV[]>;
-        } | undefined;
-    };
+        }>;
+    }>> & {
+        "onRemove-fail"?: ((...args: any[]) => any) | undefined;
+        "onShow-one"?: ((...args: any[]) => any) | undefined;
+    }>>;
     emit: {
         (type: "remove-fail", error: unknown): void;
         (type: "show-one", one: KV): void;
@@ -1696,12 +1693,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
             } | undefined;
             __originColumn__?: any;
         })[];
-        fixed?: import("ant-design-vue/lib/vc-table/interface").FixedType | undefined;
         title?: (string | number | boolean | void | import("vue").VNode<import("vue").RendererNode, import("vue").RendererElement, {
             [key: string]: any;
         }> | null | undefined) | JSX.Element | ((props: import("ant-design-vue/lib/table/interface").ColumnTitleProps<any>) => import("ant-design-vue/lib/_util/type").VueNode) | (string | number | boolean | void | import("vue").VNode<import("vue").RendererNode, import("vue").RendererElement, {
             [key: string]: any;
         }> | null | undefined)[];
+        fixed?: import("ant-design-vue/lib/vc-table/interface").FixedType | undefined;
         sorter?: boolean | import("ant-design-vue/lib/table/interface").CompareFn<any> | {
             compare?: import("ant-design-vue/lib/table/interface").CompareFn<any> | undefined;
             multiple?: number | undefined;
@@ -5010,38 +5007,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
             formProps?: Partial<import("vue").ExtractPropTypes<{
                 layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                 labelCol: {
-                    type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                    type: PropType<Partial<import("vue").ExtractPropTypes<{
                         span: (StringConstructor | NumberConstructor)[];
                         order: (StringConstructor | NumberConstructor)[];
                         offset: (StringConstructor | NumberConstructor)[];
                         push: (StringConstructor | NumberConstructor)[];
                         pull: (StringConstructor | NumberConstructor)[];
                         xs: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         sm: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         md: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         lg: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         prefixCls: StringConstructor;
@@ -5049,38 +5046,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     }>> & import("vue").HTMLAttributes>;
                 };
                 wrapperCol: {
-                    type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                    type: PropType<Partial<import("vue").ExtractPropTypes<{
                         span: (StringConstructor | NumberConstructor)[];
                         order: (StringConstructor | NumberConstructor)[];
                         offset: (StringConstructor | NumberConstructor)[];
                         push: (StringConstructor | NumberConstructor)[];
                         pull: (StringConstructor | NumberConstructor)[];
                         xs: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         sm: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         md: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         lg: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         prefixCls: StringConstructor;
@@ -5098,7 +5095,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 };
                 prefixCls: StringConstructor;
                 requiredMark: {
-                    type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                    type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                     default: any;
                 };
                 hideRequiredMark: {
@@ -5113,12 +5110,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                 };
                 rules: {
-                    type: import("vue").PropType<{
+                    type: PropType<{
                         [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                     }>;
                 };
                 validateMessages: {
-                    type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                    type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                     default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                 };
                 validateOnRuleChange: {
@@ -5126,30 +5123,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     default: any;
                 };
                 scrollToFirstError: {
-                    type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                    type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                 };
-                onSubmit: import("vue").PropType<(e: Event) => void>;
+                onSubmit: PropType<(e: Event) => void>;
                 name: StringConstructor;
                 validateTrigger: {
-                    type: import("vue").PropType<string | string[]>;
+                    type: PropType<string | string[]>;
                 };
                 size: {
-                    type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                    type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                 };
                 onValuesChange: {
-                    type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                    type: PropType<(changedValues: any, values: any) => void>;
                 };
                 onFieldsChange: {
-                    type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                    type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                 };
                 onFinish: {
-                    type: import("vue").PropType<(values: any) => void>;
+                    type: PropType<(values: any) => void>;
                 };
                 onFinishFailed: {
-                    type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                    type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                 };
                 onValidate: {
-                    type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                    type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                 };
             }>> | undefined;
             items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -5214,7 +5211,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 type: BooleanConstructor;
                 default: any;
             };
-            size: import("vue").PropType<import("ant-design-vue/lib/spin/Spin").SpinSize>;
+            size: PropType<import("ant-design-vue/lib/spin/Spin").SpinSize>;
             wrapperClassName: StringConstructor;
             tip: import("_vue-types@3.0.2@vue-types").VueTypeValidableDef<any>;
             delay: NumberConstructor;
@@ -5262,9 +5259,9 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     type: BooleanConstructor;
                     default: any;
                 };
-                onChange: import("vue").PropType<(e: import("ant-design-vue/lib/checkbox/interface").CheckboxChangeEvent) => void>;
-                'onUpdate:checked': import("vue").PropType<(checked: boolean) => void>;
-                onClick: import("vue").PropType<import("ant-design-vue/lib/_util/EventInterface").MouseEventHandler>;
+                onChange: PropType<(e: import("ant-design-vue/lib/checkbox/interface").CheckboxChangeEvent) => void>;
+                'onUpdate:checked': PropType<(checked: boolean) => void>;
+                onClick: PropType<import("ant-design-vue/lib/_util/EventInterface").MouseEventHandler>;
                 skipGroup: {
                     type: BooleanConstructor;
                     default: boolean;
@@ -5293,7 +5290,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
         sortDirections?: import("ant-design-vue/lib/table/interface").SortOrder[] | undefined;
         showSorterTooltip?: boolean | Partial<import("vue").ExtractPropTypes<{
             title: import("_vue-types@3.0.2@vue-types").VueTypeValidableDef<any>;
-            trigger: import("vue").PropType<import("ant-design-vue/lib/tooltip/abstractTooltipProps").TriggerType | import("ant-design-vue/lib/tooltip/abstractTooltipProps").TriggerType[]>;
+            trigger: PropType<import("ant-design-vue/lib/tooltip/abstractTooltipProps").TriggerType | import("ant-design-vue/lib/tooltip/abstractTooltipProps").TriggerType[]>;
             visible: {
                 type: BooleanConstructor;
                 default: any;
@@ -5302,11 +5299,11 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 type: BooleanConstructor;
                 default: any;
             };
-            placement: import("vue").PropType<import("ant-design-vue/lib/tooltip").TooltipPlacement>;
+            placement: PropType<import("ant-design-vue/lib/tooltip").TooltipPlacement>;
             color: StringConstructor;
             transitionName: StringConstructor;
             overlayStyle: {
-                type: import("vue").PropType<import("vue").CSSProperties>;
+                type: PropType<import("vue").CSSProperties>;
                 default: import("vue").CSSProperties;
             };
             overlayClassName: StringConstructor;
@@ -5314,13 +5311,13 @@ declare const _sfc_main: import("vue").DefineComponent<{
             prefixCls: StringConstructor;
             mouseEnterDelay: NumberConstructor;
             mouseLeaveDelay: NumberConstructor;
-            getPopupContainer: import("vue").PropType<(triggerNode: HTMLElement) => HTMLElement>;
+            getPopupContainer: PropType<(triggerNode: HTMLElement) => HTMLElement>;
             arrowPointAtCenter: {
                 type: BooleanConstructor;
                 default: any;
             };
             autoAdjustOverflow: {
-                type: import("vue").PropType<boolean | import("ant-design-vue/lib/tooltip").AdjustOverflow>;
+                type: PropType<boolean | import("ant-design-vue/lib/tooltip").AdjustOverflow>;
                 default: boolean | import("ant-design-vue/lib/tooltip").AdjustOverflow;
             };
             destroyTooltipOnHide: {
@@ -5328,16 +5325,16 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 default: any;
             };
             align: {
-                type: import("vue").PropType<import("ant-design-vue/lib/vc-trigger/interface").AlignType>;
+                type: PropType<import("ant-design-vue/lib/vc-trigger/interface").AlignType>;
                 default: import("ant-design-vue/lib/vc-trigger/interface").AlignType;
             };
             builtinPlacements: {
-                type: import("vue").PropType<import("ant-design-vue/lib/vc-trigger/interface").BuildInPlacements>;
+                type: PropType<import("ant-design-vue/lib/vc-trigger/interface").BuildInPlacements>;
                 default: import("ant-design-vue/lib/vc-trigger/interface").BuildInPlacements;
             };
             children: ArrayConstructor;
-            onVisibleChange: import("vue").PropType<(vis: boolean) => void>;
-            'onUpdate:visible': import("vue").PropType<(vis: boolean) => void>;
+            onVisibleChange: PropType<(vis: boolean) => void>;
+            'onUpdate:visible': PropType<(vis: boolean) => void>;
         }>> | undefined;
         prefixCls?: string | undefined;
         rowKey: string | ((row: KV) => any) | import("ant-design-vue/lib/vc-table/interface").GetRowKey<any>;
@@ -5399,38 +5396,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
             formProps?: Partial<import("vue").ExtractPropTypes<{
                 layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                 labelCol: {
-                    type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                    type: PropType<Partial<import("vue").ExtractPropTypes<{
                         span: (StringConstructor | NumberConstructor)[];
                         order: (StringConstructor | NumberConstructor)[];
                         offset: (StringConstructor | NumberConstructor)[];
                         push: (StringConstructor | NumberConstructor)[];
                         pull: (StringConstructor | NumberConstructor)[];
                         xs: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         sm: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         md: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         lg: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         prefixCls: StringConstructor;
@@ -5438,38 +5435,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     }>> & import("vue").HTMLAttributes>;
                 };
                 wrapperCol: {
-                    type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                    type: PropType<Partial<import("vue").ExtractPropTypes<{
                         span: (StringConstructor | NumberConstructor)[];
                         order: (StringConstructor | NumberConstructor)[];
                         offset: (StringConstructor | NumberConstructor)[];
                         push: (StringConstructor | NumberConstructor)[];
                         pull: (StringConstructor | NumberConstructor)[];
                         xs: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         sm: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         md: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         lg: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         prefixCls: StringConstructor;
@@ -5487,7 +5484,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 };
                 prefixCls: StringConstructor;
                 requiredMark: {
-                    type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                    type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                     default: any;
                 };
                 hideRequiredMark: {
@@ -5502,12 +5499,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                 };
                 rules: {
-                    type: import("vue").PropType<{
+                    type: PropType<{
                         [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                     }>;
                 };
                 validateMessages: {
-                    type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                    type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                     default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                 };
                 validateOnRuleChange: {
@@ -5515,30 +5512,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     default: any;
                 };
                 scrollToFirstError: {
-                    type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                    type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                 };
-                onSubmit: import("vue").PropType<(e: Event) => void>;
+                onSubmit: PropType<(e: Event) => void>;
                 name: StringConstructor;
                 validateTrigger: {
-                    type: import("vue").PropType<string | string[]>;
+                    type: PropType<string | string[]>;
                 };
                 size: {
-                    type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                    type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                 };
                 onValuesChange: {
-                    type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                    type: PropType<(changedValues: any, values: any) => void>;
                 };
                 onFieldsChange: {
-                    type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                    type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                 };
                 onFinish: {
-                    type: import("vue").PropType<(values: any) => void>;
+                    type: PropType<(values: any) => void>;
                 };
                 onFinishFailed: {
-                    type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                    type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                 };
                 onValidate: {
-                    type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                    type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                 };
             }>> | undefined;
             items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -5569,38 +5566,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 formProps?: Partial<import("vue").ExtractPropTypes<{
                     layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                     labelCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -5608,38 +5605,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         }>> & import("vue").HTMLAttributes>;
                     };
                     wrapperCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -5657,7 +5654,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                     prefixCls: StringConstructor;
                     requiredMark: {
-                        type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                        type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                         default: any;
                     };
                     hideRequiredMark: {
@@ -5672,12 +5669,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         };
                     };
                     rules: {
-                        type: import("vue").PropType<{
+                        type: PropType<{
                             [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                         }>;
                     };
                     validateMessages: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                        type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                         default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                     };
                     validateOnRuleChange: {
@@ -5685,30 +5682,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         default: any;
                     };
                     scrollToFirstError: {
-                        type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                        type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                     };
-                    onSubmit: import("vue").PropType<(e: Event) => void>;
+                    onSubmit: PropType<(e: Event) => void>;
                     name: StringConstructor;
                     validateTrigger: {
-                        type: import("vue").PropType<string | string[]>;
+                        type: PropType<string | string[]>;
                     };
                     size: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                        type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                     };
                     onValuesChange: {
-                        type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                        type: PropType<(changedValues: any, values: any) => void>;
                     };
                     onFieldsChange: {
-                        type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                        type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                     };
                     onFinish: {
-                        type: import("vue").PropType<(values: any) => void>;
+                        type: PropType<(values: any) => void>;
                     };
                     onFinishFailed: {
-                        type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                        type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                     };
                     onValidate: {
-                        type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                        type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                     };
                 }>> | undefined;
                 items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -5765,38 +5762,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 formProps?: Partial<import("vue").ExtractPropTypes<{
                     layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                     labelCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -5804,38 +5801,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         }>> & import("vue").HTMLAttributes>;
                     };
                     wrapperCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -5853,7 +5850,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                     prefixCls: StringConstructor;
                     requiredMark: {
-                        type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                        type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                         default: any;
                     };
                     hideRequiredMark: {
@@ -5868,12 +5865,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         };
                     };
                     rules: {
-                        type: import("vue").PropType<{
+                        type: PropType<{
                             [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                         }>;
                     };
                     validateMessages: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                        type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                         default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                     };
                     validateOnRuleChange: {
@@ -5881,30 +5878,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         default: any;
                     };
                     scrollToFirstError: {
-                        type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                        type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                     };
-                    onSubmit: import("vue").PropType<(e: Event) => void>;
+                    onSubmit: PropType<(e: Event) => void>;
                     name: StringConstructor;
                     validateTrigger: {
-                        type: import("vue").PropType<string | string[]>;
+                        type: PropType<string | string[]>;
                     };
                     size: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                        type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                     };
                     onValuesChange: {
-                        type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                        type: PropType<(changedValues: any, values: any) => void>;
                     };
                     onFieldsChange: {
-                        type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                        type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                     };
                     onFinish: {
-                        type: import("vue").PropType<(values: any) => void>;
+                        type: PropType<(values: any) => void>;
                     };
                     onFinishFailed: {
-                        type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                        type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                     };
                     onValidate: {
-                        type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                        type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                     };
                 }>> | undefined;
                 items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -5985,38 +5982,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
             formProps?: Partial<import("vue").ExtractPropTypes<{
                 layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                 labelCol: {
-                    type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                    type: PropType<Partial<import("vue").ExtractPropTypes<{
                         span: (StringConstructor | NumberConstructor)[];
                         order: (StringConstructor | NumberConstructor)[];
                         offset: (StringConstructor | NumberConstructor)[];
                         push: (StringConstructor | NumberConstructor)[];
                         pull: (StringConstructor | NumberConstructor)[];
                         xs: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         sm: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         md: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         lg: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         prefixCls: StringConstructor;
@@ -6024,38 +6021,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     }>> & import("vue").HTMLAttributes>;
                 };
                 wrapperCol: {
-                    type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                    type: PropType<Partial<import("vue").ExtractPropTypes<{
                         span: (StringConstructor | NumberConstructor)[];
                         order: (StringConstructor | NumberConstructor)[];
                         offset: (StringConstructor | NumberConstructor)[];
                         push: (StringConstructor | NumberConstructor)[];
                         pull: (StringConstructor | NumberConstructor)[];
                         xs: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         sm: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         md: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         lg: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         prefixCls: StringConstructor;
@@ -6073,7 +6070,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 };
                 prefixCls: StringConstructor;
                 requiredMark: {
-                    type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                    type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                     default: any;
                 };
                 hideRequiredMark: {
@@ -6088,12 +6085,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                 };
                 rules: {
-                    type: import("vue").PropType<{
+                    type: PropType<{
                         [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                     }>;
                 };
                 validateMessages: {
-                    type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                    type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                     default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                 };
                 validateOnRuleChange: {
@@ -6101,30 +6098,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     default: any;
                 };
                 scrollToFirstError: {
-                    type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                    type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                 };
-                onSubmit: import("vue").PropType<(e: Event) => void>;
+                onSubmit: PropType<(e: Event) => void>;
                 name: StringConstructor;
                 validateTrigger: {
-                    type: import("vue").PropType<string | string[]>;
+                    type: PropType<string | string[]>;
                 };
                 size: {
-                    type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                    type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                 };
                 onValuesChange: {
-                    type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                    type: PropType<(changedValues: any, values: any) => void>;
                 };
                 onFieldsChange: {
-                    type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                    type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                 };
                 onFinish: {
-                    type: import("vue").PropType<(values: any) => void>;
+                    type: PropType<(values: any) => void>;
                 };
                 onFinishFailed: {
-                    type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                    type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                 };
                 onValidate: {
-                    type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                    type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                 };
             }>> | undefined;
             items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -6155,38 +6152,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 formProps?: Partial<import("vue").ExtractPropTypes<{
                     layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                     labelCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -6194,38 +6191,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         }>> & import("vue").HTMLAttributes>;
                     };
                     wrapperCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -6243,7 +6240,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                     prefixCls: StringConstructor;
                     requiredMark: {
-                        type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                        type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                         default: any;
                     };
                     hideRequiredMark: {
@@ -6258,12 +6255,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         };
                     };
                     rules: {
-                        type: import("vue").PropType<{
+                        type: PropType<{
                             [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                         }>;
                     };
                     validateMessages: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                        type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                         default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                     };
                     validateOnRuleChange: {
@@ -6271,30 +6268,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         default: any;
                     };
                     scrollToFirstError: {
-                        type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                        type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                     };
-                    onSubmit: import("vue").PropType<(e: Event) => void>;
+                    onSubmit: PropType<(e: Event) => void>;
                     name: StringConstructor;
                     validateTrigger: {
-                        type: import("vue").PropType<string | string[]>;
+                        type: PropType<string | string[]>;
                     };
                     size: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                        type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                     };
                     onValuesChange: {
-                        type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                        type: PropType<(changedValues: any, values: any) => void>;
                     };
                     onFieldsChange: {
-                        type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                        type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                     };
                     onFinish: {
-                        type: import("vue").PropType<(values: any) => void>;
+                        type: PropType<(values: any) => void>;
                     };
                     onFinishFailed: {
-                        type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                        type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                     };
                     onValidate: {
-                        type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                        type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                     };
                 }>> | undefined;
                 items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -6355,38 +6352,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 formProps?: Partial<import("vue").ExtractPropTypes<{
                     layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                     labelCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -6394,38 +6391,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         }>> & import("vue").HTMLAttributes>;
                     };
                     wrapperCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -6443,7 +6440,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                     prefixCls: StringConstructor;
                     requiredMark: {
-                        type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                        type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                         default: any;
                     };
                     hideRequiredMark: {
@@ -6458,12 +6455,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         };
                     };
                     rules: {
-                        type: import("vue").PropType<{
+                        type: PropType<{
                             [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                         }>;
                     };
                     validateMessages: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                        type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                         default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                     };
                     validateOnRuleChange: {
@@ -6471,30 +6468,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         default: any;
                     };
                     scrollToFirstError: {
-                        type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                        type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                     };
-                    onSubmit: import("vue").PropType<(e: Event) => void>;
+                    onSubmit: PropType<(e: Event) => void>;
                     name: StringConstructor;
                     validateTrigger: {
-                        type: import("vue").PropType<string | string[]>;
+                        type: PropType<string | string[]>;
                     };
                     size: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                        type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                     };
                     onValuesChange: {
-                        type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                        type: PropType<(changedValues: any, values: any) => void>;
                     };
                     onFieldsChange: {
-                        type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                        type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                     };
                     onFinish: {
-                        type: import("vue").PropType<(values: any) => void>;
+                        type: PropType<(values: any) => void>;
                     };
                     onFinishFailed: {
-                        type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                        type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                     };
                     onValidate: {
-                        type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                        type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                     };
                 }>> | undefined;
                 items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -6652,38 +6649,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
             formProps?: Partial<import("vue").ExtractPropTypes<{
                 layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                 labelCol: {
-                    type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                    type: PropType<Partial<import("vue").ExtractPropTypes<{
                         span: (StringConstructor | NumberConstructor)[];
                         order: (StringConstructor | NumberConstructor)[];
                         offset: (StringConstructor | NumberConstructor)[];
                         push: (StringConstructor | NumberConstructor)[];
                         pull: (StringConstructor | NumberConstructor)[];
                         xs: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         sm: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         md: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         lg: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         prefixCls: StringConstructor;
@@ -6691,38 +6688,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     }>> & import("vue").HTMLAttributes>;
                 };
                 wrapperCol: {
-                    type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                    type: PropType<Partial<import("vue").ExtractPropTypes<{
                         span: (StringConstructor | NumberConstructor)[];
                         order: (StringConstructor | NumberConstructor)[];
                         offset: (StringConstructor | NumberConstructor)[];
                         push: (StringConstructor | NumberConstructor)[];
                         pull: (StringConstructor | NumberConstructor)[];
                         xs: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         sm: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         md: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         lg: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         prefixCls: StringConstructor;
@@ -6740,7 +6737,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 };
                 prefixCls: StringConstructor;
                 requiredMark: {
-                    type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                    type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                     default: any;
                 };
                 hideRequiredMark: {
@@ -6755,12 +6752,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                 };
                 rules: {
-                    type: import("vue").PropType<{
+                    type: PropType<{
                         [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                     }>;
                 };
                 validateMessages: {
-                    type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                    type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                     default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                 };
                 validateOnRuleChange: {
@@ -6768,30 +6765,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     default: any;
                 };
                 scrollToFirstError: {
-                    type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                    type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                 };
-                onSubmit: import("vue").PropType<(e: Event) => void>;
+                onSubmit: PropType<(e: Event) => void>;
                 name: StringConstructor;
                 validateTrigger: {
-                    type: import("vue").PropType<string | string[]>;
+                    type: PropType<string | string[]>;
                 };
                 size: {
-                    type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                    type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                 };
                 onValuesChange: {
-                    type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                    type: PropType<(changedValues: any, values: any) => void>;
                 };
                 onFieldsChange: {
-                    type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                    type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                 };
                 onFinish: {
-                    type: import("vue").PropType<(values: any) => void>;
+                    type: PropType<(values: any) => void>;
                 };
                 onFinishFailed: {
-                    type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                    type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                 };
                 onValidate: {
-                    type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                    type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                 };
             }>> | undefined;
             items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -6822,38 +6819,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 formProps?: Partial<import("vue").ExtractPropTypes<{
                     layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                     labelCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -6861,38 +6858,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         }>> & import("vue").HTMLAttributes>;
                     };
                     wrapperCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -6910,7 +6907,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                     prefixCls: StringConstructor;
                     requiredMark: {
-                        type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                        type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                         default: any;
                     };
                     hideRequiredMark: {
@@ -6925,12 +6922,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         };
                     };
                     rules: {
-                        type: import("vue").PropType<{
+                        type: PropType<{
                             [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                         }>;
                     };
                     validateMessages: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                        type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                         default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                     };
                     validateOnRuleChange: {
@@ -6938,30 +6935,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         default: any;
                     };
                     scrollToFirstError: {
-                        type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                        type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                     };
-                    onSubmit: import("vue").PropType<(e: Event) => void>;
+                    onSubmit: PropType<(e: Event) => void>;
                     name: StringConstructor;
                     validateTrigger: {
-                        type: import("vue").PropType<string | string[]>;
+                        type: PropType<string | string[]>;
                     };
                     size: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                        type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                     };
                     onValuesChange: {
-                        type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                        type: PropType<(changedValues: any, values: any) => void>;
                     };
                     onFieldsChange: {
-                        type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                        type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                     };
                     onFinish: {
-                        type: import("vue").PropType<(values: any) => void>;
+                        type: PropType<(values: any) => void>;
                     };
                     onFinishFailed: {
-                        type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                        type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                     };
                     onValidate: {
-                        type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                        type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                     };
                 }>> | undefined;
                 items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -7018,38 +7015,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 formProps?: Partial<import("vue").ExtractPropTypes<{
                     layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                     labelCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -7057,38 +7054,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         }>> & import("vue").HTMLAttributes>;
                     };
                     wrapperCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -7106,7 +7103,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                     prefixCls: StringConstructor;
                     requiredMark: {
-                        type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                        type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                         default: any;
                     };
                     hideRequiredMark: {
@@ -7121,12 +7118,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         };
                     };
                     rules: {
-                        type: import("vue").PropType<{
+                        type: PropType<{
                             [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                         }>;
                     };
                     validateMessages: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                        type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                         default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                     };
                     validateOnRuleChange: {
@@ -7134,30 +7131,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         default: any;
                     };
                     scrollToFirstError: {
-                        type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                        type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                     };
-                    onSubmit: import("vue").PropType<(e: Event) => void>;
+                    onSubmit: PropType<(e: Event) => void>;
                     name: StringConstructor;
                     validateTrigger: {
-                        type: import("vue").PropType<string | string[]>;
+                        type: PropType<string | string[]>;
                     };
                     size: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                        type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                     };
                     onValuesChange: {
-                        type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                        type: PropType<(changedValues: any, values: any) => void>;
                     };
                     onFieldsChange: {
-                        type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                        type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                     };
                     onFinish: {
-                        type: import("vue").PropType<(values: any) => void>;
+                        type: PropType<(values: any) => void>;
                     };
                     onFinishFailed: {
-                        type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                        type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                     };
                     onValidate: {
-                        type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                        type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                     };
                 }>> | undefined;
                 items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -7236,38 +7233,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
             formProps?: Partial<import("vue").ExtractPropTypes<{
                 layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                 labelCol: {
-                    type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                    type: PropType<Partial<import("vue").ExtractPropTypes<{
                         span: (StringConstructor | NumberConstructor)[];
                         order: (StringConstructor | NumberConstructor)[];
                         offset: (StringConstructor | NumberConstructor)[];
                         push: (StringConstructor | NumberConstructor)[];
                         pull: (StringConstructor | NumberConstructor)[];
                         xs: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         sm: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         md: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         lg: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         prefixCls: StringConstructor;
@@ -7275,38 +7272,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     }>> & import("vue").HTMLAttributes>;
                 };
                 wrapperCol: {
-                    type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                    type: PropType<Partial<import("vue").ExtractPropTypes<{
                         span: (StringConstructor | NumberConstructor)[];
                         order: (StringConstructor | NumberConstructor)[];
                         offset: (StringConstructor | NumberConstructor)[];
                         push: (StringConstructor | NumberConstructor)[];
                         pull: (StringConstructor | NumberConstructor)[];
                         xs: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         sm: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         md: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         lg: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         prefixCls: StringConstructor;
@@ -7324,7 +7321,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 };
                 prefixCls: StringConstructor;
                 requiredMark: {
-                    type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                    type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                     default: any;
                 };
                 hideRequiredMark: {
@@ -7339,12 +7336,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                 };
                 rules: {
-                    type: import("vue").PropType<{
+                    type: PropType<{
                         [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                     }>;
                 };
                 validateMessages: {
-                    type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                    type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                     default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                 };
                 validateOnRuleChange: {
@@ -7352,30 +7349,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     default: any;
                 };
                 scrollToFirstError: {
-                    type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                    type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                 };
-                onSubmit: import("vue").PropType<(e: Event) => void>;
+                onSubmit: PropType<(e: Event) => void>;
                 name: StringConstructor;
                 validateTrigger: {
-                    type: import("vue").PropType<string | string[]>;
+                    type: PropType<string | string[]>;
                 };
                 size: {
-                    type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                    type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                 };
                 onValuesChange: {
-                    type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                    type: PropType<(changedValues: any, values: any) => void>;
                 };
                 onFieldsChange: {
-                    type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                    type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                 };
                 onFinish: {
-                    type: import("vue").PropType<(values: any) => void>;
+                    type: PropType<(values: any) => void>;
                 };
                 onFinishFailed: {
-                    type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                    type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                 };
                 onValidate: {
-                    type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                    type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                 };
             }>> | undefined;
             items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -7406,38 +7403,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 formProps?: Partial<import("vue").ExtractPropTypes<{
                     layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                     labelCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -7445,38 +7442,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         }>> & import("vue").HTMLAttributes>;
                     };
                     wrapperCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -7494,7 +7491,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                     prefixCls: StringConstructor;
                     requiredMark: {
-                        type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                        type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                         default: any;
                     };
                     hideRequiredMark: {
@@ -7509,12 +7506,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         };
                     };
                     rules: {
-                        type: import("vue").PropType<{
+                        type: PropType<{
                             [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                         }>;
                     };
                     validateMessages: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                        type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                         default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                     };
                     validateOnRuleChange: {
@@ -7522,30 +7519,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         default: any;
                     };
                     scrollToFirstError: {
-                        type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                        type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                     };
-                    onSubmit: import("vue").PropType<(e: Event) => void>;
+                    onSubmit: PropType<(e: Event) => void>;
                     name: StringConstructor;
                     validateTrigger: {
-                        type: import("vue").PropType<string | string[]>;
+                        type: PropType<string | string[]>;
                     };
                     size: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                        type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                     };
                     onValuesChange: {
-                        type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                        type: PropType<(changedValues: any, values: any) => void>;
                     };
                     onFieldsChange: {
-                        type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                        type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                     };
                     onFinish: {
-                        type: import("vue").PropType<(values: any) => void>;
+                        type: PropType<(values: any) => void>;
                     };
                     onFinishFailed: {
-                        type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                        type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                     };
                     onValidate: {
-                        type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                        type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                     };
                 }>> | undefined;
                 items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -7606,38 +7603,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 formProps?: Partial<import("vue").ExtractPropTypes<{
                     layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                     labelCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -7645,38 +7642,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         }>> & import("vue").HTMLAttributes>;
                     };
                     wrapperCol: {
-                        type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                        type: PropType<Partial<import("vue").ExtractPropTypes<{
                             span: (StringConstructor | NumberConstructor)[];
                             order: (StringConstructor | NumberConstructor)[];
                             offset: (StringConstructor | NumberConstructor)[];
                             push: (StringConstructor | NumberConstructor)[];
                             pull: (StringConstructor | NumberConstructor)[];
                             xs: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             sm: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             md: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             lg: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             xxxl: {
-                                type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                                type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                                 default: string | number | import("ant-design-vue/lib/grid").ColSize;
                             };
                             prefixCls: StringConstructor;
@@ -7694,7 +7691,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                     prefixCls: StringConstructor;
                     requiredMark: {
-                        type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                        type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                         default: any;
                     };
                     hideRequiredMark: {
@@ -7709,12 +7706,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         };
                     };
                     rules: {
-                        type: import("vue").PropType<{
+                        type: PropType<{
                             [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                         }>;
                     };
                     validateMessages: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                        type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                         default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                     };
                     validateOnRuleChange: {
@@ -7722,30 +7719,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                         default: any;
                     };
                     scrollToFirstError: {
-                        type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                        type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                     };
-                    onSubmit: import("vue").PropType<(e: Event) => void>;
+                    onSubmit: PropType<(e: Event) => void>;
                     name: StringConstructor;
                     validateTrigger: {
-                        type: import("vue").PropType<string | string[]>;
+                        type: PropType<string | string[]>;
                     };
                     size: {
-                        type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                        type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                     };
                     onValuesChange: {
-                        type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                        type: PropType<(changedValues: any, values: any) => void>;
                     };
                     onFieldsChange: {
-                        type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                        type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                     };
                     onFinish: {
-                        type: import("vue").PropType<(values: any) => void>;
+                        type: PropType<(values: any) => void>;
                     };
                     onFinishFailed: {
-                        type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                        type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                     };
                     onValidate: {
-                        type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                        type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                     };
                 }>> | undefined;
                 items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -7821,38 +7818,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
             formProps?: Partial<import("vue").ExtractPropTypes<{
                 layout: import("_vue-types@3.0.2@vue-types").VueTypeDef<"inline" | "horizontal" | "vertical">;
                 labelCol: {
-                    type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                    type: PropType<Partial<import("vue").ExtractPropTypes<{
                         span: (StringConstructor | NumberConstructor)[];
                         order: (StringConstructor | NumberConstructor)[];
                         offset: (StringConstructor | NumberConstructor)[];
                         push: (StringConstructor | NumberConstructor)[];
                         pull: (StringConstructor | NumberConstructor)[];
                         xs: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         sm: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         md: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         lg: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         prefixCls: StringConstructor;
@@ -7860,38 +7857,38 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     }>> & import("vue").HTMLAttributes>;
                 };
                 wrapperCol: {
-                    type: import("vue").PropType<Partial<import("vue").ExtractPropTypes<{
+                    type: PropType<Partial<import("vue").ExtractPropTypes<{
                         span: (StringConstructor | NumberConstructor)[];
                         order: (StringConstructor | NumberConstructor)[];
                         offset: (StringConstructor | NumberConstructor)[];
                         push: (StringConstructor | NumberConstructor)[];
                         pull: (StringConstructor | NumberConstructor)[];
                         xs: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         sm: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         md: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         lg: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         xxxl: {
-                            type: import("vue").PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
+                            type: PropType<string | number | import("ant-design-vue/lib/grid").ColSize>;
                             default: string | number | import("ant-design-vue/lib/grid").ColSize;
                         };
                         prefixCls: StringConstructor;
@@ -7909,7 +7906,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                 };
                 prefixCls: StringConstructor;
                 requiredMark: {
-                    type: import("vue").PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
+                    type: PropType<"" | import("ant-design-vue/lib/form/Form").RequiredMark>;
                     default: any;
                 };
                 hideRequiredMark: {
@@ -7924,12 +7921,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     };
                 };
                 rules: {
-                    type: import("vue").PropType<{
+                    type: PropType<{
                         [k: string]: import("ant-design-vue/lib/form").RuleObject | import("ant-design-vue/lib/form").RuleObject[];
                     }>;
                 };
                 validateMessages: {
-                    type: import("vue").PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
+                    type: PropType<import("ant-design-vue/lib/form/interface").ValidateMessages>;
                     default: import("ant-design-vue/lib/form/interface").ValidateMessages;
                 };
                 validateOnRuleChange: {
@@ -7937,30 +7934,30 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     default: any;
                 };
                 scrollToFirstError: {
-                    type: import("vue").PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
+                    type: PropType<boolean | import("_scroll-into-view-if-needed@2.2.29@scroll-into-view-if-needed").Options<any>>;
                 };
-                onSubmit: import("vue").PropType<(e: Event) => void>;
+                onSubmit: PropType<(e: Event) => void>;
                 name: StringConstructor;
                 validateTrigger: {
-                    type: import("vue").PropType<string | string[]>;
+                    type: PropType<string | string[]>;
                 };
                 size: {
-                    type: import("vue").PropType<import("ant-design-vue/lib/button").ButtonSize>;
+                    type: PropType<import("ant-design-vue/lib/button").ButtonSize>;
                 };
                 onValuesChange: {
-                    type: import("vue").PropType<(changedValues: any, values: any) => void>;
+                    type: PropType<(changedValues: any, values: any) => void>;
                 };
                 onFieldsChange: {
-                    type: import("vue").PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
+                    type: PropType<(changedFields: import("ant-design-vue/lib/form/interface").FieldData[], allFields: import("ant-design-vue/lib/form/interface").FieldData[]) => void>;
                 };
                 onFinish: {
-                    type: import("vue").PropType<(values: any) => void>;
+                    type: PropType<(values: any) => void>;
                 };
                 onFinishFailed: {
-                    type: import("vue").PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
+                    type: PropType<(errorInfo: import("ant-design-vue/lib/form/interface").ValidateErrorEntity<any>) => void>;
                 };
                 onValidate: {
-                    type: import("vue").PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
+                    type: PropType<(name: string | number | string[] | number[], status: boolean, errors: string[]) => void>;
                 };
             }>> | undefined;
             items: (formData: KV<any>) => import('./types').NFormItem[];
@@ -7997,29 +7994,16 @@ declare const _sfc_main: import("vue").DefineComponent<{
         required: true;
     };
     r: {
-        type: null;
+        type: PropType<RProps>;
         required: true;
     };
-    c: {
-        type: null;
-        required: false;
-    };
-    u: {
-        type: null;
-        required: false;
-    };
-    d: {
-        type: null;
-        required: false;
-    };
-    onBeforeMount: {
-        type: FunctionConstructor;
-        required: false;
-    };
-    exportExcel: {
-        type: ObjectConstructor;
-        required: false;
-    };
+    c: PropType<CProps>;
+    u: PropType<UProps>;
+    d: PropType<DProps>;
+    onBeforeMount: PropType<() => Promise<unknown>>;
+    exportExcel: PropType<{
+        done: (condition: KV) => Promise<KV[]>;
+    }>;
 }>> & {
     "onRemove-fail"?: ((...args: any[]) => any) | undefined;
     "onShow-one"?: ((...args: any[]) => any) | undefined;
