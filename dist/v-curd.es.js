@@ -1535,7 +1535,7 @@ const _sfc_main = defineComponent({
     onBeforeMount: null,
     exportExcel: null
   },
-  emits: ["remove-fail"],
+  emits: ["remove-fail", "show-one"],
   setup(__props, { emit }) {
     var _a;
     const props = __props;
@@ -1664,6 +1664,7 @@ const _sfc_main = defineComponent({
       isOneLoading.value = true;
       oneData.value = await props.r.getOne(row);
       isOneLoading.value = false;
+      emit("show-one", row);
     }
     async function exportExcelFile() {
       var _a2;

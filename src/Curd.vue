@@ -1,3 +1,21 @@
+<script lang="ts">
+export function defineC(config: CProps): CProps {
+  return config;
+}
+
+export function defineU(config: UProps): UProps {
+  return config;
+}
+
+export function defineR(config: RProps): RProps {
+  return config;
+}
+
+export function defineD(config: DProps): DProps {
+  return config;
+}
+</script>
+
 <script setup lang="ts">
 import {
   CloudDownloadOutlined,
@@ -25,7 +43,7 @@ import type { CProps, DProps, RProps, UProps, KV } from "@/types";
 
 interface Props {
   primaryKey: string;
-  
+
   r: RProps;
 
   c?: CProps;
@@ -49,7 +67,7 @@ type tableData = {
 const props = defineProps<Props>();
 const emit = defineEmits<{
   (type: "remove-fail", error: unknown): void;
-  (type:'show-one', one:unknown):void;
+  (type: "show-one", one: KV): void;
 }>();
 
 const tableRef = ref();
@@ -212,7 +230,7 @@ async function showOne(row: KV) {
   isOneLoading.value = true;
   oneData.value = await props.r.getOne!(row);
   isOneLoading.value = false;
-  emit('show-one', row);
+  emit("show-one", row);
 }
 
 // 导出表格

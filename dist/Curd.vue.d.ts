@@ -1,4 +1,8 @@
 import type { CProps, DProps, RProps, UProps, KV } from './types';
+export declare function defineC(config: CProps): CProps;
+export declare function defineU(config: UProps): UProps;
+export declare function defineR(config: RProps): RProps;
+export declare function defineD(config: DProps): DProps;
 declare const _sfc_main: import("vue").DefineComponent<{
     primaryKey: {
         type: StringConstructor;
@@ -29,6 +33,10 @@ declare const _sfc_main: import("vue").DefineComponent<{
         required: false;
     };
 }, {
+    defineC: typeof defineC;
+    defineU: typeof defineU;
+    defineR: typeof defineR;
+    defineD: typeof defineD;
     props: {
         primaryKey: string;
         r: RProps;
@@ -40,7 +48,10 @@ declare const _sfc_main: import("vue").DefineComponent<{
             done: (condition: KV) => Promise<KV[]>;
         } | undefined;
     };
-    emit: (type: "remove-fail", error: unknown) => void;
+    emit: {
+        (type: "remove-fail", error: unknown): void;
+        (type: 'show-one', one: KV): void;
+    };
     tableRef: import("vue").Ref<any>;
     toggleTableFull: () => void;
     isLoading: import("vue").Ref<boolean>;
@@ -7988,7 +7999,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
     }>>, {
         modelValue: any;
     }>;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "remove-fail"[], "remove-fail", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("remove-fail" | "show-one")[], "remove-fail" | "show-one", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     primaryKey: {
         type: StringConstructor;
         required: true;
@@ -8019,5 +8030,6 @@ declare const _sfc_main: import("vue").DefineComponent<{
     };
 }>> & {
     "onRemove-fail"?: ((...args: any[]) => any) | undefined;
+    "onShow-one"?: ((...args: any[]) => any) | undefined;
 }, {}>;
 export default _sfc_main;
