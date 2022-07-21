@@ -4,7 +4,6 @@ import { h, reactive } from "vue";
 import arr2tree from "@any86/array-to-tree";
 import Curd, { defineC, defineD, defineR, defineU } from "@/lib";
 import axios from "axios";
-import { Tag } from "ant-design-vue";
 interface KV<T = any> {
   [k: string | number]: T;
 }
