@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "rm:nm":"rimraf node_modules"
   },
   "dependencies": {
     "5a.css": "^0.1.20",
