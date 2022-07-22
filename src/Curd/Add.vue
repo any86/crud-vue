@@ -8,7 +8,7 @@ import type { NFormItem, KV, CProps } from '@/types';
 // 所以这里Props和CProps是一样的内容,
 // extends用来约束Props
 interface Props extends CProps {
-  before?: ((formData: KV) => Promise<KV>) | (() => void);
+  before?: ((formData: KV) => Promise<void>) | (() => void);
   formProps?: FormProps;
   modelValue: KV;
   items: (formData: KV) => NFormItem[];

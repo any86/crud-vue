@@ -15,11 +15,7 @@ export interface NFormItem extends FormItemProps {
   toggle?: boolean;
 }
 
-/**
- * "新增"表单组件的属性
- */
-export interface CProps {
-  before?: ((formData: KV) => Promise<KV>) | (() => void);
+interface UC {
   formProps?: FormProps;
   // modelValue不暴露给defineC函数
   // modelValue: KV;
@@ -28,20 +24,33 @@ export interface CProps {
 }
 
 /**
+ * "新增"表单组件的属性
+ */
+export interface CProps extends UC {
+  before?: ((formData: KV) => Promise<void>) | (() => void);
+
+}
+
+/**
  * "编辑"表单组件的属性
  */
-export interface UProps extends CProps {
+export interface UProps extends UC {
+  before?: ((formData: KV) => Promise<KV>) | (() => void);
 }
 
 export interface RProps extends TableProps {
-  // 列配置
+  before?: () => Promise<any>;
   // 筛选条件配置
-  conditionItems?: () => NFormItem[];
+  conditionItems?: (shared?: KV) => NFormItem[];
   tableProps?: TableProps
   done: (params: KV) => Promise<{ list: KV[], total: number }>;
   hideRowSelection?: boolean;
   // 获取一条
   getOne?: (params: KV) => Promise<KV>;
+  // 导出excel
+  exportExcel?: {
+    done: (condition: KV) => Promise<KV[]>;
+  }
 }
 
 export interface DProps {
