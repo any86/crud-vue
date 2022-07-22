@@ -38,7 +38,7 @@ const r = defineR({
 
   async done() {
     const { data } = await http("/role");
-    return {list:data.list,total:data.total};
+    return { list: data.list, total: data.total };
   },
 });
 </script>
@@ -49,12 +49,29 @@ const r = defineR({
 ```
 
 ## API
+
 `v-curd`组件通过属性来配置"增删改查"的必要逻辑.
 
 ### primaryKey
-**必填**, ant中的`a-table`需要, 这里一般使用数据中的`xxid`字段即可.
+
+**必填**, ant 中的`a-table`需要, 这里一般使用数据中的"**id**"字段即可.
 
 ### r
-**必填**, 值是个对象, 用来配置表格的显示.
-其中`columns`字段就是`ant`的`table`组件的`columns`, 具体说明可参考ant的文档.
 
+**必填**, 值是个对象, 用来配置表格,包含如下字段
+
+- [columns , 表格字段配置]()
+- [tableProps , table 组件完整配置]()
+- [hideRowSelection , 控制每行 checkbox 显隐]()
+- [conditionItems , 搜索条件表单结构数据]()
+- [done , 列表接口数据处理]()
+- [getOne , 详情接口数据处理]()
+
+
+### c
+
+用来构造"新建"表单.
+-[before, 表单显示前的钩子函数, 用来获取]()
+-[formProps]()
+-[items]()
+-[done]()

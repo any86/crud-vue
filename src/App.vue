@@ -96,7 +96,7 @@ const c = defineC({
 });
 
 const u = defineU({
-  async getDefaultValue(formData) {
+  async before(formData) {
     const { data } = await http.get("/role/" + formData[primaryKey]);
     data.state = Boolean(data.state);
     return data;

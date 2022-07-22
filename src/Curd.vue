@@ -27,7 +27,7 @@ import {
 } from "@ant-design/icons-vue";
 import Add from "./Curd/Add.vue";
 import Edit from "./Curd/Edit.vue";
-import NForm from "./Curd/NForm.vue";
+import NForm from "./Curd/VForm.vue";
 import type { CProps, DProps, RProps, UProps, KV } from "@/types";
 
 // 表格需要的数据源
@@ -192,7 +192,7 @@ async function showAddForm() {
   try {
     isAddFormLoading.value = true;
     if (props.c?.before) {
-      await props.c.before();
+      await props.c.before({});
     }
     addRef.value?.show();
   } catch (error) {
@@ -205,11 +205,7 @@ async function showAddForm() {
 // 编辑
 const editRef = ref<typeof Edit | undefined>();
 function showEditForm(record: KV) {
-  editRef.value?.show(record, async () => {
-    if (props.u?.before) {
-      await props.u.before();
-    }
-  });
+  editRef.value?.show(record);
 }
 
 // 详情

@@ -1,9 +1,34 @@
-import { ref} from 'vue'
+import { ref, type PropType } from 'vue'
 import to from 'await-to-js';
 import { message } from 'ant-design-vue';
-import NForm from '@/Curd/NForm.vue';
+import NForm from '@/Curd/VForm.vue';
 import { cloneDeep } from 'lodash';
 import type { CProps, DProps, RProps, UProps, KV } from '@/types';
+
+// export const FORM_PROPS = {
+//     done: {
+//         type: Function as PropType<CProps['done']>,
+//         required: true,
+//     },
+//     before: {
+//         type: Function as PropType<CProps['before']>,
+//         default: () => void 0,
+//     },
+
+//     formProps: {
+//         type: Object as PropType<CProps['formProps']>,
+//     },
+
+//     modelValue: {
+//         type: Object as PropType<CProps['modelValue']>,
+//         required: true,
+//     },
+
+//     items: {
+//         type: Function as PropType<CProps['items']>,
+//         required: true,
+//     },
+// };
 
 
 export function useForm(done: CProps['done'], onSuccess: (formData: KV) => void, onFail: (error: string) => void, onReset = () => { }) {
@@ -98,7 +123,9 @@ export function walkTree<Node extends { children?: Node[] }>(nodes: Node[], each
         }
     }
 }
-
+export function _warn(...message: any) {
+    console.warn(...message)
+}
 
 
 export function defineC(config: CProps): CProps {

@@ -19,8 +19,10 @@ export interface NFormItem extends FormItemProps {
  * "新增"表单组件的属性
  */
 export interface CProps {
-  before?: (() => Promise<void>) | (() => void);
+  before?: ((formData: KV) => Promise<KV>) | (() => void);
   formProps?: FormProps;
+  // modelValue不暴露给defineC函数
+  // modelValue: KV;
   items: (formData: KV) => NFormItem[];
   done: (formData: KV) => Promise<[boolean, string]>;
 }
@@ -29,7 +31,6 @@ export interface CProps {
  * "编辑"表单组件的属性
  */
 export interface UProps extends CProps {
-  getDefaultValue: (formData: KV) => Promise<KV>;
 }
 
 export interface RProps extends TableProps {

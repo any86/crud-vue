@@ -3,16 +3,19 @@ import { ref } from 'vue';
 import { type FormProps } from 'ant-design-vue';
 import { ArrowRightOutlined } from '@ant-design/icons-vue';
 import { useForm } from '@/shared';
-import NForm from '@/Curd/NForm.vue';
-import type { UProps, KV, NFormItem } from '@/types';
+import NForm from '@/Curd/VForm.vue';
+import type { KV, NFormItem, UProps } from '@/types';
+
+// vue不能推导导入的CProps,
+// 所以这里Props和CProps是一样的内容,
+// extends用来约束Props
 interface Props extends UProps {
-  modelValue: KV;
+  before?: ((formData: KV) => Promise<KV>) | (() => void);
   formProps?: FormProps;
+  modelValue: KV;
   items: (formData: KV) => NFormItem[];
   done: (formData: KV) => Promise<[boolean, string]>;
-  getDefaultValue: (formData: KV) => Promise<KV>;
 }
-
 interface Emits {
   (type: 'success', formData: KV): void;
   (type: 'fail', error: unknown): void;
@@ -33,15 +36,20 @@ const { nFormRef, isShow, isSubmitting, save, reset, formData, setDefault } = us
 
 const isLoading = ref(false);
 const errorMessage = ref('');
-async function show(params: KV, before = () => Promise.resolve()) {
+async function show(params: KV) {
   isShow.value = true;
   isLoading.value = true;
   errorMessage.value = '';
   try {
-    await before();
-    const data = await props.getDefaultValue(params);
-    setDefault(!!data ? data : {});
-    formData.value = data;
+    // 前置操作,
+    // 可用来获取默认值
+    if (props.before) {
+      const data = await props.before(params);
+      if (data) {
+        setDefault(!!data ? data : {});
+        formData.value = data;
+      }
+    }
   } catch (error) {
     console.log(error);
     errorMessage.value = 'string' === typeof error ? error : '系统故障,请稍后重试';
@@ -56,7 +64,7 @@ defineExpose({
 </script>
 
 <template>
-  <a-drawer v-model:visible="isShow" title="编辑"  size="large">
+  <a-drawer v-model:visible="isShow" title="编辑" size="large">
     <a-skeleton :loading="isLoading">
       <a-result v-if="errorMessage" status="500" title="出错了" :sub-title="errorMessage">
         <template #extra>

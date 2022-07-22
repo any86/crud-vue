@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { type FormProps} from 'ant-design-vue';
-import NForm from '@/Curd/NForm.vue';
+import { type FormProps } from 'ant-design-vue';
+import NForm from '@/Curd/VForm.vue';
 import { useForm } from '@/shared';
-import type { CProps, NFormItem, KV } from '@/types';
+import type { NFormItem, KV, CProps } from '@/types';
 
+// vue不能推导导入的CProps,
+// 所以这里Props和CProps是一样的内容,
+// extends用来约束Props
 interface Props extends CProps {
-  modelValue: KV;
+  before?: ((formData: KV) => Promise<KV>) | (() => void);
   formProps?: FormProps;
+  modelValue: KV;
   items: (formData: KV) => NFormItem[];
   done: (formData: KV) => Promise<[boolean, string]>;
 }
@@ -26,7 +30,7 @@ function onReset() {
   }
 }
 
-const { nFormRef, isShow, isSubmitting, save, reset, formData,setDefault} = useForm(
+const { nFormRef, isShow, isSubmitting, save, reset, formData, setDefault } = useForm(
   props.done,
   (formData) => {
     emit('success', formData);
