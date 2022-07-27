@@ -181,7 +181,6 @@ const c = defineC({
     await Promise.all([getRoleOptions(), getDepartmentOptions(), getPositionOptions()]);
   },
   async done(formData) {
-    formData.state = formData.state ? 1 : 0;
     const { status, data } = await http.post('/user', formData);
     return [200 === status, data.msg];
   },
