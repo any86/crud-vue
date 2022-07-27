@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import { h, reactive, ref, resolveComponent } from 'vue';
-import arr2tree from '@any86/array-to-tree';
 import Curd, { defineC, defineD, defineR, defineU } from '@/lib';
 import axios from 'axios';
 interface KV<T = any> {
@@ -170,9 +169,7 @@ const r = defineR({
     },
   ],
   conditionItems: () => {
-    return [
-      { is: 'a-input', name: 'name', label: '用户名' },
-    ];
+    return [{ is: 'a-input', name: 'name', label: '用户名' }];
   },
   async done(params) {
     const { data } = await http('/user', { params });
@@ -185,12 +182,13 @@ const c = defineC({
   },
   async done(formData) {
     formData.state = formData.state ? 1 : 0;
-    const { data } = await http.post('/user', formData);
-    return data.msg;
+    const { status, data } = await http.post('/user', formData);
+    return [200 === status, data.msg];
   },
+  formProps: { labelCol: { span: 2 } },
 
   items: () => [
-    { is: 'a-input', name: 'userName', label: '账号' },
+    { is: 'a-input', name: 'userName', label: '账号', rules: [{ required: true, message: '必填项' }] },
     { is: 'a-input', name: 'realName', label: '姓名' },
     {
       is: 'a-radio-group',
@@ -229,11 +227,11 @@ const u = defineU({
     await Promise.all([getRoleOptions(), getDepartmentOptions(), getPositionOptions()]);
     return data;
   },
-
+  formProps: { labelCol: { span: 2 } },
   async done(formData) {
-    const { id, ...kv } = formData;
-    const { data } = await http.put('/user/' + id, kv);
-    return data.msg;
+    const { [primaryKey]:id, ...kv } = formData;
+    const { data, status } = await http.put('/user/' + id, kv);
+    return [200 === status, data.msg];
   },
 
   items: c.items,
@@ -242,15 +240,15 @@ const u = defineU({
 const d = defineD({
   async done(idList) {
     if (1 < idList.length) {
-      const { data } = await http.delete('/user/', {
+      const { data, status } = await http.delete('/user/', {
         params: {
           idList,
         },
       });
-      return data.msg;
+      return [200 === status, data.msg];
     } else {
-      const { data } = await http.delete('/user/' + idList[0]);
-      return data.msg;
+      const { data, status } = await http.delete('/user/' + idList[0]);
+      return [200 === status, data.msg];
     }
   },
 });
