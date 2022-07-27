@@ -280,7 +280,8 @@ function getContainer() {
 <template>
   <a-config-provider :locale="zhCN" :getPopupContainer="getContainer">
     <h1 class="title" align="center">v-curd</h1>
-    <p align="center">🚀"增删改查"更简单</p>
+    <p align="center">🚀"增删改查"更简单 <a-button type="link"><a href="https://github.com/any86/v-curd" target="_new">⚡文档</a></a-button></p>
+    
     <div class="box" id="box">
       <curd v-bind="{ primaryKey, c, u, r, d }"></curd>
     </div>
