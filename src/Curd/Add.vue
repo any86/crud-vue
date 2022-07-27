@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type FormProps } from 'ant-design-vue';
+import { type FormProps, type ModalProps } from 'ant-design-vue';
 import NForm from '@/Curd/VForm.vue';
 import { useForm } from '@/shared';
 import type { NFormItem, KV, CProps } from '@/types';
@@ -8,6 +8,7 @@ import type { NFormItem, KV, CProps } from '@/types';
 // 所以这里Props和CProps是一样的内容,
 // extends用来约束Props
 interface Props extends CProps {
+  modalProps?: ModalProps;
   before?: ((formData: KV) => Promise<void>) | (() => void);
   formProps?: FormProps;
   modelValue: KV;
@@ -60,6 +61,7 @@ defineExpose({
     title="新建"
     width="52%"
     :bodyStyle="{ overflowY: 'auto', maxHeight: '70vh' }"
+    v-bind="modalProps"
   >
     <n-form ref="nFormRef" v-model="formData" :items="items" :formProps="formProps"></n-form>
     <template #footer>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { type FormProps } from 'ant-design-vue';
+import { type FormProps, type DrawerProps } from 'ant-design-vue';
 import { ArrowRightOutlined } from '@ant-design/icons-vue';
 import { useForm } from '@/shared';
 import NForm from '@/Curd/VForm.vue';
@@ -9,6 +9,7 @@ import type { KV, NFormItem, UProps } from '@/types';
 interface Props extends UProps {
   before?: ((formData: KV) => Promise<KV>) | (() => void);
   formProps?: FormProps;
+  drawerProps?: DrawerProps;
   modelValue: KV;
   items: (formData: KV) => NFormItem[];
   done: (formData: KV) => Promise<[boolean, string]>;
@@ -61,7 +62,7 @@ defineExpose({
 </script>
 
 <template>
-  <a-drawer v-model:visible="isShow" title="编辑" size="large">
+  <a-drawer v-model:visible="isShow" title="编辑" size="large" v-bind="drawerProps">
     <a-skeleton :loading="isLoading" active>
       <a-result v-if="errorMessage" status="500" title="出错了" :sub-title="errorMessage">
         <template #extra>

@@ -238,6 +238,10 @@ const c = defineC({
 });
 
 const u = defineU({
+  drawerProps: {
+    getContainer,
+    style: { position: 'absolute' },
+  },
   async before(row) {
     const { data } = await http.get('/user/' + row[primaryKey]);
     await Promise.all([getRoleOptions(), getDepartmentOptions(), getPositionOptions()]);
@@ -268,13 +272,17 @@ const d = defineD({
     }
   },
 });
+
+function getContainer() {
+  return document.getElementById('box');
+}
 </script>
 
 <template>
-  <a-config-provider :locale="zhCN">
+  <a-config-provider :locale="zhCN" :getPopupContainer="getContainer">
     <h1 class="title" align="center">v-curd</h1>
     <p align="center">🚀"增删改查"更简单</p>
-    <div class="box">
+    <div class="box" id="box">
       <curd v-bind="{ primaryKey, c, u, r, d }"></curd>
     </div>
   </a-config-provider>
@@ -288,13 +296,14 @@ const d = defineD({
 }
 
 .title {
-  margin:0;
+  margin: 0;
   font-size: 32px;
 }
 
 .box {
-  width: 80vw;
-  height: 80vh;
+  position: relative;
+  max-width: 80vw;
+  max-height: 80vh;
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);
   margin: 0 auto 10vh;
   overflow-x: hidden;
