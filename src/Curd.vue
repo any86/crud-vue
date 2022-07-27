@@ -46,7 +46,6 @@ const emit = defineEmits<{
   (type: 'show-one', one: KV): void;
 }>();
 
-
 const tableRef = ref();
 function toggleTableFull() {
   console.log(tableRef.value.$el);
@@ -242,7 +241,7 @@ async function exportExcelFile() {
 <template>
   <a-card class="curd" :loading="isLoading">
     <a-drawer v-if="r.getOne" v-model:visible="isShowOne" title="详情" width="50%">
-      <a-skeleton :loading="isOneLoading">
+      <a-skeleton :loading="isOneLoading" active>
         <slot name="one" v-bind="oneData"></slot>
       </a-skeleton>
     </a-drawer>
