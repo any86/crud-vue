@@ -143,3 +143,8 @@ export function defineR(config: RProps): RProps {
 export function defineD(config: DProps): DProps {
     return config;
 }
+
+
+export function useCache(){
+    
+}

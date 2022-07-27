@@ -46,7 +46,6 @@ const emit = defineEmits<{
   (type: 'show-one', one: KV): void;
 }>();
 
-const shared = reactive<KV<KV>>({});
 
 const tableRef = ref();
 function toggleTableFull() {
@@ -65,8 +64,7 @@ function changeColumns(columns: any) {
 onBeforeMount(async () => {
   if (props.r.before) {
     isLoading.value = true;
-    const data = await props.r.before();
-    shared.r = data;
+    await props.r.before();
     isLoading.value = false;
   }
 });
@@ -82,7 +80,7 @@ watch(isShowMoreCondition, () => {
 
 // 处理hasShowMore
 const conditionItems = props.r.conditionItems || (() => []);
-const hasShowMore = conditionItems(shared).some((item) => 'toggle' in item);
+const hasShowMore = conditionItems().some((item) => 'toggle' in item);
 
 // 表格的选择
 // 注意table组件上一定要指定rowKey属性才能生效
@@ -311,7 +309,7 @@ async function exportExcelFile() {
       ref="conditionFormRef"
       v-model="conditionFormData"
       v-if="void 0 !== r.conditionItems"
-      :items="() => r.conditionItems!(shared)"
+      :items="r.conditionItems"
       layout="inline"
       :label-col="{ span: 5 }"
     >

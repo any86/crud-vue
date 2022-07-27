@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import type { FormInstance, FormProps } from "ant-design-vue";
-import type { NFormItem, KV } from "@/types";
-import cloneDeep from "lodash/cloneDeep";
-import { computed } from "vue";
+import { ref, watch } from 'vue';
+import type { FormInstance, FormProps } from 'ant-design-vue';
+import type { NFormItem, KV } from '@/types';
+import cloneDeep from 'lodash/cloneDeep';
+import { computed } from 'vue';
 
 interface Props {
   modelValue: KV;
@@ -17,9 +17,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const isLoading = ref(true);
 const formData = ref<KV>(props.modelValue || {});
-const defaultValueMap: KV = !!props.modelValue
-  ? cloneDeep(props.modelValue)
-  : {};
+const defaultValueMap: KV = !!props.modelValue ? cloneDeep(props.modelValue) : {};
 watch(
   () => props.modelValue,
   (modelValue) => {
@@ -35,11 +33,10 @@ watch(
     formItems.forEach((item) => {
       if (void 0 !== item.defaultValue) {
         if (void 0 === item.name) {
-          console.warn("表单组件缺少name字段");
+          console.warn('表单组件缺少name字段');
         } else {
           // 同步items配置中设置的默认值
-          formData.value[item.name] =
-            formData.value[item.name] || item.defaultValue;
+          formData.value[item.name] = formData.value[item.name] || item.defaultValue;
           defaultValueMap[item.name] = formData.value[item.name];
         }
       }
@@ -56,7 +53,7 @@ const formRef = ref<FormInstance>();
  * @param item 表单单项配置信息
  */
 function getVModelName(item: NFormItem) {
-  return item.modelName || "value";
+  return item.modelName || 'value';
 }
 
 /**
@@ -78,21 +75,12 @@ defineExpose({ formRef, reset, toggleItem });
 </script>
 
 <template>
+  <a-form v-if="!isLoading && void 0 !== formData" ref="formRef" :model="formData" v-bind="formProps">
   <!-- {{ formData }} -->
-  <a-form
-    v-if="!isLoading && void 0 !== formData"
-    ref="formRef"
-    :model="formData"
-    v-bind="formProps"
-  >
     <template v-for="item in formItems" :key="item.name">
-      <a-form-item
-        v-if="!('toggle' in item && !isShowFormItem)"
-        colon
-        :id="item.name"
-        v-bind="item"
-      >
+      <a-form-item v-if="!('toggle' in item && !isShowFormItem)" colon :id="item.name" v-bind="item">
         <!-- {{formData[item.name]}} -->
+
         <!-- 表单类的组件 -->
         <component
           v-if="item.name"

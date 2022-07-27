@@ -84,7 +84,8 @@ function useRoleOptions() {
 
 const http = axios.create({
   // 配置
-  baseURL: 'https://mock.apifox.cn/m1/486559-0-default/api/',
+  // baseURL: 'https://mock.apifox.cn/m1/486559-0-default/api/',
+  baseURL: '	http://127.0.0.1:4523/m1/486559-0-default/api/',
 });
 
 const primaryKey = 'userId';
@@ -93,18 +94,9 @@ const [departmentOptions, getDepartmentOptions] = useDepartmentOptions();
 const [positionOptions, getPositionOptions] = usePositionOptions();
 
 const r = defineR({
-  async before() {
-    let treeData = reactive<KV[]>([]);
-    const { data } = await http.get('/global/menu');
-    treeData = arr2tree(data, {
-      transform(node: any) {
-        node.title = node.name;
-        node.key = node.id;
-        return node;
-      },
-    });
-    return { treeData };
-  },
+  // async before() {
+  //   const { data } = await http.get('/global/menu');
+  // },
   columns: [
     {
       title: '姓名',
@@ -178,8 +170,10 @@ const r = defineR({
       width: 250,
     },
   ],
-  conditionItems: (shared) => {
-    return [{ is: 'a-input', name: 'name', label: '用户名' }];
+  conditionItems: () => {
+    return [
+      { is: 'a-input', name: 'name', label: '用户名' },
+    ];
   },
   async done(params) {
     const { data } = await http('/user', { params });
@@ -212,9 +206,9 @@ const c = defineC({
     },
     { is: 'a-input-number', name: 'age', label: '年龄' },
     { is: 'a-input', name: 'email', label: '邮箱' },
-    { is: 'a-select', name: 'departmentId', label: '部门', props: { options: departmentOptions } },
-    { is: 'a-select', name: 'roleId', label: '角色', props: { options: roleOptions } },
-    { is: 'a-select', name: 'positonId', label: '职位', props: { options: positionOptions } },
+    { is: 'a-select', name: 'departmentId', label: '部门', props: { options: departmentOptions.value } },
+    { is: 'a-select', name: 'roleIds', label: '角色', props: { options: roleOptions.value, mode: 'multiple' } },
+    { is: 'a-select', name: 'positionId', label: '职位', props: { options: positionOptions.value } },
     {
       is: 'a-radio-group',
       name: 'state',
@@ -227,26 +221,12 @@ const c = defineC({
         ],
       },
     },
-    {
-      is: 'a-tree',
-      name: 'menuId',
-      modelName: 'checkedKeys',
-      label: '菜单',
-      props: {
-        // treeData,
-        checkable: true,
-        defaultExpandAll: true,
-        // selectable:true,
-        // autoExpandParent:true,
-      },
-    },
   ],
 });
 
 const u = defineU({
   async before(row) {
     const { data } = await http.get('/user/' + row[primaryKey]);
-    data.state = Boolean(data.state);
     await Promise.all([getRoleOptions(), getDepartmentOptions(), getPositionOptions()]);
     return data;
   },

@@ -39,7 +39,7 @@ export interface UProps extends UC {
 }
 
 export interface RProps extends TableProps {
-  before?: () => Promise<any>;
+  before?: () => void;
   // 筛选条件配置
   conditionItems?: (shared?: KV) => NFormItem[];
   tableProps?: TableProps
