@@ -194,6 +194,7 @@ const c = defineC({
       is: 'a-radio-group',
       name: 'sex',
       label: '性别',
+      defaultValue:1,
       props: {
         options: [
           { label: '男', value: 1 },
@@ -203,9 +204,9 @@ const c = defineC({
     },
     { is: 'a-input-number', name: 'age', label: '年龄' },
     { is: 'a-input', name: 'email', label: '邮箱' },
-    { is: 'a-select', name: 'departmentId', label: '部门', props: { options: departmentOptions.value } },
-    { is: 'a-select', name: 'roleIds', label: '角色', props: { options: roleOptions.value, mode: 'multiple' } },
-    { is: 'a-select', name: 'positionId', label: '职位', props: { options: positionOptions.value } },
+    { is: 'a-select', name: 'departmentId', label: '部门', props: { options: departmentOptions.value ,placeholder:'请选择部门'} },
+    { is: 'a-select', name: 'roleIds', label: '角色', props: { options: roleOptions.value, mode: 'multiple' ,placeholder:'请选择角色' } },
+    { is: 'a-select', name: 'positionId', label: '职位', props: { options: positionOptions.value ,placeholder:'请选择职位' } },
     {
       is: 'a-radio-group',
       name: 'state',
