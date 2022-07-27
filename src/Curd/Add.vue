@@ -59,7 +59,7 @@ defineExpose({
     v-model:visible="isShow"
     title="新建"
     width="52%"
-    :bodyStyle="{ overflow: 'scroll', maxHeight: '70vh' }"
+    :bodyStyle="{ overflowY: 'auto', maxHeight: '70vh' }"
   >
     <n-form ref="nFormRef" v-model="formData" :items="items" :formProps="formProps"></n-form>
     <template #footer>
