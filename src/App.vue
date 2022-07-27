@@ -84,8 +84,7 @@ function useRoleOptions() {
 
 const http = axios.create({
   // 配置
-  // baseURL: 'https://mock.apifox.cn/m1/486559-0-default/api/',
-  baseURL: '	http://127.0.0.1:4523/m1/486559-0-default/api/',
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 const primaryKey = 'userId';
