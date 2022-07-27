@@ -1,6 +1,9 @@
 # v-curd
 
-基于 ant-design-vue@3 封装的 curd 组件, 帮你复杂事简单办.
+🚀基于 ant-design-vue@3 封装的"**增/删/改/查**"组件.
+
+![image](https://user-images.githubusercontent.com/8264787/181182787-ecde9c22-0e2d-4bad-ba8a-9ef727cdfcad.png)
+
 
 ## 安装
 
@@ -10,7 +13,11 @@ npm i v-curd -D
 
 ## 快速开始
 
-下面是一个简单的表格
+下面是一个简单的表格, 只需要配置`columns`和`done`字段.
+
+`columns`就是"ant"组件库中table组件的配置, 用来配置列.
+
+`done`是"v-curd"定义的字段, 值是个函数, 用来格式化接口返回数据, 函数返回`{total:10,list:[{xx:1}]}`这样的数据表格就会显示.
 
 ```vue
 <script setup lang="ts">
@@ -50,7 +57,7 @@ const r = defineR({
 
 ## API
 
-`v-curd`组件通过属性来配置"增删改查"的必要逻辑.
+通过配置"v-curd"组件的"**c/u/r/d**"4个字段实现"增删改查".
 
 ### primaryKey
 
@@ -61,7 +68,7 @@ const r = defineR({
 **必填**, 值是个对象, 用来配置表格,包含如下字段
 
 - [columns , 表格字段配置]()
-- [tableProps , table 组件完整配置]()
+- [tableProps , 🐜ant的table 组件完整配置]()
 - [hideRowSelection , 控制每行 checkbox 显隐]()
 - [conditionItems , 搜索条件表单结构数据]()
 - [done , 列表接口数据处理]()
@@ -71,7 +78,18 @@ const r = defineR({
 ### c
 
 用来构造"新建"表单.
--[before, 表单显示前的钩子函数, 用来获取]()
--[formProps]()
--[items]()
--[done]()
+- [before, 表单显示前的钩子函数, 用来获取]()
+- [formProps, 🐜ant的form组件完整配置]()
+- [items, 配置表单每一项的组件]()
+- [done, 点击"新增"按钮后触发]()
+
+
+### u
+
+用来构造"编辑"表单, 和"c"一样.
+
+### d
+
+用来配置"删除操作"
+
+- [done, 点击"删除"按钮后触发]()

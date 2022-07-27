@@ -194,7 +194,7 @@ const c = defineC({
       is: 'a-radio-group',
       name: 'sex',
       label: '性别',
-      defaultValue:1,
+      defaultValue: 1,
       props: {
         options: [
           { label: '男', value: 1 },
@@ -204,9 +204,24 @@ const c = defineC({
     },
     { is: 'a-input-number', name: 'age', label: '年龄' },
     { is: 'a-input', name: 'email', label: '邮箱' },
-    { is: 'a-select', name: 'departmentId', label: '部门', props: { options: departmentOptions.value ,placeholder:'请选择部门'} },
-    { is: 'a-select', name: 'roleIds', label: '角色', props: { options: roleOptions.value, mode: 'multiple' ,placeholder:'请选择角色' } },
-    { is: 'a-select', name: 'positionId', label: '职位', props: { options: positionOptions.value ,placeholder:'请选择职位' } },
+    {
+      is: 'a-select',
+      name: 'departmentId',
+      label: '部门',
+      props: { options: departmentOptions.value, placeholder: '请选择部门' },
+    },
+    {
+      is: 'a-select',
+      name: 'roleIds',
+      label: '角色',
+      props: { options: roleOptions.value, mode: 'multiple', placeholder: '请选择角色' },
+    },
+    {
+      is: 'a-select',
+      name: 'positionId',
+      label: '职位',
+      props: { options: positionOptions.value, placeholder: '请选择职位' },
+    },
     {
       is: 'a-radio-group',
       name: 'state',
@@ -230,7 +245,7 @@ const u = defineU({
   },
   formProps: { labelCol: { span: 2 } },
   async done(formData) {
-    const { [primaryKey]:id, ...kv } = formData;
+    const { [primaryKey]: id, ...kv } = formData;
     const { data, status } = await http.put('/user/' + id, kv);
     return [200 === status, data.msg];
   },
@@ -257,6 +272,48 @@ const d = defineD({
 
 <template>
   <a-config-provider :locale="zhCN">
-    <curd v-bind="{ primaryKey, c, u, r, d }"></curd>
+    <h1 class="title" align="center">v-curd</h1>
+    <p align="center">🚀"增删改查"更简单</p>
+    <div class="box">
+      <curd v-bind="{ primaryKey, c, u, r, d }"></curd>
+    </div>
   </a-config-provider>
 </template>
+
+<style lang="scss">
+#app {
+  font-family: 微软雅黑, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.title {
+  margin:0;
+  font-size: 32px;
+}
+
+.box {
+  width: 80vw;
+  height: 80vh;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);
+  margin: 0 auto 10vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar-track {
+  background: hsla(0, 0%, 100%, 0.15);
+  border-radius: 3px;
+  box-shadow: inset 0 0 5px rgb(37 37 37 / 5%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+  box-shadow: inset 0 0 5px rgb(0 21 41 / 5%);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+</style>
