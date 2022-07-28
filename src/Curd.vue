@@ -250,7 +250,7 @@ async function exportExcelFile() {
 
 <template>
   <a-card class="curd" :loading="isLoading">
-    <a-drawer v-if="r.getOne" v-model:visible="isShowOne" title="详情" width="50%">
+    <a-drawer v-if="r.getOne" v-model:visible="isShowOne" title="详情" width="50%" v-bind="r.drawerProps">
       <a-skeleton :loading="isOneLoading" active>
         <slot name="one" v-bind="one"></slot>
       </a-skeleton>

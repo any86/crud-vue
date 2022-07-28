@@ -88,6 +88,10 @@ const [departmentOptions, getDepartmentOptions] = useDepartmentOptions();
 const [positionOptions, getPositionOptions] = usePositionOptions();
 
 const r = defineR({
+  drawerProps: {
+    getContainer,
+    style: { position: 'absolute' },
+  },
   // async before() {
   //   const { data } = await http.get('/global/menu');
   // },

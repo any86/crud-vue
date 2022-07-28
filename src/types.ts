@@ -42,6 +42,7 @@ export interface UProps extends UC {
 
 export interface RProps extends TableProps {
   before?: () => void;
+  drawerProps?:DrawerProps;
   // 筛选条件配置
   conditionItems?: (shared?: KV) => NFormItem[];
   tableProps?: TableProps
