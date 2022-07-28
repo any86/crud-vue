@@ -2,7 +2,7 @@
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import { h, reactive, ref, resolveComponent } from 'vue';
 import Curd, { defineC, defineD, defineR, defineU } from '@/lib';
-import axios from 'axios';
+import http from '@/http';
 interface KV<T = any> {
   [k: string | number]: T;
 }
@@ -81,10 +81,7 @@ function useRoleOptions() {
   return [optionsRef, get] as const;
 }
 
-const http = axios.create({
-  // 配置
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-});
+
 
 const primaryKey = 'userId';
 const [roleOptions, getRoleOptions] = useRoleOptions();
