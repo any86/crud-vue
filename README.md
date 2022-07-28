@@ -64,20 +64,21 @@ const r = defineR({
 
 通过配置"v-curd"组件的"**c/u/r/d**"4 个字段实现"增删改查".
 
-### primaryKey
+### primaryKey(主键)
 
-**必填**, ant 中的`a-table`需要, 这里一般使用数据中的"**id**"字段即可.
+**必填**, ant 中的`a-table`需要, 选用数据中的能"**表示唯一的id**"字段即可.
 
-### r
+### r(读取)
 
 **必填**, 值是个对象, 用来配置表格, 用`defineR`函数来定义,包含如下字段:
 
-- [columns , 表格字段配置]()
-- [tableProps , 🐜ant 的 table 组件完整配置]()
+- [columns , 表格字段配置, 对应ant中table组件的columns]()
 - [hideRowSelection , 控制每行 checkbox 显隐]()
-- [conditionItems , 搜索条件表单结构数据]()
+- [conditionItems , 搜索条件表单结构数据](./docs/items.md)
 - [done , 列表接口数据处理]()
 - [getOne , 详情接口数据处理]()
+- [tableProps , 🐜ant 的 table 组件完整配置](https://www.antdv.com/components/table-cn#Table)
+- [drawerProps, 🐜ant 的 drawer 组件完整配置, 此处对应"详情对话框"](https://www.antdv.com/components/drawer-cn#API)
 
 ```typescript
 const r = defineR({
@@ -92,14 +93,14 @@ const r = defineR({
 });
 ```
 
-### c
+### c(新增)
 
 **非必填**, 用来构造"新建"表单,用`defineC`函数来定义.
 
 - [before, 表单显示前的钩子函数]()
-- [modalProps, 🐜ant 的 modal 组件完整配置]()
-- [formProps, 🐜ant 的 form 组件完整配置]()
-- [items, 配置表单每一项的组件]()
+- [modalProps, 🐜ant 的 modal 组件完整配置](https://www.antdv.com/components/modal-cn#API)
+- [formProps, 🐜ant 的 form 组件完整配置](https://www.antdv.com/components/form-cn#API)
+- [items, 配置表单每一项的组件](./docs/items.md)
 - [done, 点击"新增"按钮后触发]()
 
 ```typescript
@@ -117,13 +118,13 @@ const c = defineC({
     { is: 'a-input', name: 'realName', label: '姓名' },
 ```
 
-### u
+### u(编辑)
 
-**非必填**, 用来构造"编辑"表单,用`defineU`函数来定义.和`c`的配置一样, 除了`modalProps`这里是`drawerProps`
+**非必填**, 用来构造"编辑"表单,用`defineU`函数来定义.[和"c"的配置一样](#c新增), 除了`modalProps`这里是`drawerProps`
 
-- [drawerProps, 🐜ant 的 drawer 组件完整配置]()
+- [drawerProps, 🐜ant 的 drawer 组件完整配置, 在此对应"编辑对话框"](https://www.antdv.com/components/drawer-cn#API)
 
-### d
+### d(删除)
 
 **非必填**, 用来配置"删除操作",用`defineD`函数来定义.
 
