@@ -1,4 +1,4 @@
-import type { ColProps, FormProps, FormItemProps, TableProps ,DrawerProps,ModalProps} from 'ant-design-vue';
+import type { ColProps, FormProps, FormItemProps, TableProps, DrawerProps, ModalProps } from 'ant-design-vue';
 import type { VNode, Component as C1 } from 'vue';
 
 export interface KV<T = any> {
@@ -20,14 +20,14 @@ interface UC {
   // modelValue不暴露给defineC函数
   // modelValue: KV;
   items: (formData: KV) => NFormItem[];
-  done: (formData: KV) => Promise<[boolean, string]>;
+  done: (formData: KV) => Promise<[boolean, string?]>;
 }
 
 /**
  * "新增"表单组件的属性
  */
 export interface CProps extends UC {
-  modalProps?:ModalProps;
+  modalProps?: ModalProps;
   before?: ((formData: KV) => Promise<void>) | (() => void);
 
 }
@@ -36,7 +36,7 @@ export interface CProps extends UC {
  * "编辑"表单组件的属性
  */
 export interface UProps extends UC {
-  drawerProps?:DrawerProps;
+  drawerProps?: DrawerProps;
   before?: ((formData: KV) => Promise<KV>) | (() => void);
 }
 

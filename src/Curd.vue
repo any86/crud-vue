@@ -18,7 +18,7 @@ import Add from './Curd/Add.vue';
 import Edit from './Curd/Edit.vue';
 import NForm from './Curd/VForm.vue';
 import type { CProps, DProps, RProps, UProps, KV } from '@/types';
-
+import { _warn } from '@/shared';
 // 表格需要的数据源
 type tableData = {
   list: { [k: string]: unknown }[];
@@ -132,11 +132,11 @@ function onPageSizeChange(current: number, size: number) {
 // 并加载数据
 async function reset() {
   await conditionFormRef.value?.reset();
-  getList();
+  getTableData();
 }
 
 // 加载数据
-async function getList() {
+async function getTableData() {
   isTableLoading.value = true;
   try {
     const { list, total } = await props.r.done({
@@ -148,21 +148,24 @@ async function getList() {
     isTableLoading.value = false;
     pageCount.value = Number(total);
   } catch (error) {
-    message.error(error as string);
+    // props.r.onError(error);
+    // message.error(error as string);
+  } finally {
+    isTableLoading.value = false;
   }
 }
-watch([pageCurrent, pageSize], getList, { immediate: true });
+watch([pageCurrent, pageSize], getTableData, { immediate: true });
 
 // ========= 删除 =========
 async function remove(keys: string[], row?: KV) {
-  const [isSucces, text] = await props.d!.done(keys, row);
-  if (isSucces) {
-    message.success(text);
+  const [isSuccess, msg] = await props.d!.done(keys, row);
+  if (isSuccess) {
+    msg && message.success(msg);
     selectedRowKeys.value = [];
-    getList();
+    getTableData();
   } else {
-    message.error(text);
-    emit('remove-fail', text);
+    msg && message.error(msg);
+    emit('remove-fail', msg);
   }
 }
 
@@ -195,14 +198,21 @@ function showEditForm(record: KV) {
 
 // 详情
 const isShowOne = ref(false);
-const oneData = ref<KV>();
+const one = ref<any>();
 const isOneLoading = ref(false);
 async function showOne(row: KV) {
-  isShowOne.value = true;
-  isOneLoading.value = true;
-  oneData.value = await props.r.getOne!(row);
-  isOneLoading.value = false;
-  emit('show-one', row);
+  try {
+    isShowOne.value = true;
+    isOneLoading.value = true;
+    one.value = await props.r.getOne!(row);
+    if (void 0 === one.value) {
+      _warn('当前"getOne"函数没有返回值!');
+    }
+    emit('show-one', row);
+  } catch (error) {
+  } finally {
+    isOneLoading.value = false;
+  }
 }
 
 // 导出表格
@@ -242,15 +252,15 @@ async function exportExcelFile() {
   <a-card class="curd" :loading="isLoading">
     <a-drawer v-if="r.getOne" v-model:visible="isShowOne" title="详情" width="50%">
       <a-skeleton :loading="isOneLoading" active>
-        <slot name="one" v-bind="oneData"></slot>
+        <slot name="one" v-bind="one"></slot>
       </a-skeleton>
     </a-drawer>
 
     <!-- 编辑 -->
-    <Edit ref="editRef" v-if="u" v-model="FormDataEdit" v-bind="u" @success="getList" />
+    <Edit ref="editRef" v-if="u" v-model="FormDataEdit" v-bind="u" @success="getTableData" />
 
     <!-- 新增 -->
-    <Add ref="addRef" v-if="c" v-model="FormDataAdd" v-bind="c" @success="getList" />
+    <Add ref="addRef" v-if="c" v-model="FormDataAdd" v-bind="c" @success="getTableData" />
 
     <!-- 新增&导出按钮 -->
     <div class="mb-2 d-flex align-items-center" style="column-gap: 8px">
@@ -316,7 +326,7 @@ async function exportExcelFile() {
         <a-form-item>
           <a-space>
             <a-button :loading="isTableLoading" @click="reset">重置</a-button>
-            <a-button type="primary" :loading="isTableLoading" @click="getList"><search-outlined />查询</a-button>
+            <a-button type="primary" :loading="isTableLoading" @click="getTableData"><search-outlined />查询</a-button>
             <a-button v-if="hasShowMore" @click="isShowMoreCondition = !isShowMoreCondition" type="link">
               <template v-if="isShowMoreCondition"><up-outlined />收起</template>
               <template v-else><down-outlined />展开</template>

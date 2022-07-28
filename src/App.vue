@@ -2,6 +2,7 @@
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import { h, reactive, ref, resolveComponent } from 'vue';
 import Curd, { defineC, defineD, defineR, defineU } from '@/lib';
+import Detail from '@/Detail.vue';
 import http from '@/http';
 interface KV<T = any> {
   [k: string | number]: T;
@@ -80,8 +81,6 @@ function useRoleOptions() {
 
   return [optionsRef, get] as const;
 }
-
-
 
 const primaryKey = 'userId';
 const [roleOptions, getRoleOptions] = useRoleOptions();
@@ -168,6 +167,12 @@ const r = defineR({
   conditionItems: () => {
     return [{ is: 'a-input', name: 'name', label: '用户名' }];
   },
+
+  async getOne(row) {
+    const { data } = await http.get('/user/' + row[primaryKey]);
+    return data;
+  },
+
   async done(params) {
     const { data } = await http('/user', { params });
     return data;
@@ -277,10 +282,18 @@ function getContainer() {
 <template>
   <a-config-provider :locale="zhCN" :getPopupContainer="getContainer">
     <h1 class="title" align="center">v-curd</h1>
-    <p align="center">🚀"增删改查"更简单 <a-button type="link"><a href="https://github.com/any86/v-curd" target="_new">⚡文档</a></a-button></p>
-    
+    <p align="center">
+      🚀"增删改查"更简单
+      <a-button type="link"><a href="https://github.com/any86/v-curd" target="_new">⚡文档</a></a-button>
+    </p>
+
     <div class="box" id="box">
-      <curd v-bind="{ primaryKey, c, u, r, d }"></curd>
+      <curd v-bind="{ primaryKey, c, u, r, d }">
+        <!-- 详情 -->
+        <template #one="one">
+          <Detail :data-source="one" />
+        </template>
+      </curd>
     </div>
   </a-config-provider>
 </template>

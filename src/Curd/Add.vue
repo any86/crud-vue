@@ -13,7 +13,7 @@ interface Props extends CProps {
   formProps?: FormProps;
   modelValue: KV;
   items: (formData: KV) => NFormItem[];
-  done: (formData: KV) => Promise<[boolean, string]>;
+  done: (formData: KV) => Promise<[boolean, string?]>;
 }
 
 interface Emits {

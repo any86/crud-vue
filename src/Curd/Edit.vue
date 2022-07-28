@@ -12,7 +12,7 @@ interface Props extends UProps {
   drawerProps?: DrawerProps;
   modelValue: KV;
   items: (formData: KV) => NFormItem[];
-  done: (formData: KV) => Promise<[boolean, string]>;
+  done: (formData: KV) => Promise<[boolean, string?]>;
 }
 interface Emits {
   (type: 'success', formData: KV): void;

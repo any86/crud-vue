@@ -5,33 +5,7 @@ import NForm from '@/Curd/VForm.vue';
 import { cloneDeep } from 'lodash';
 import type { CProps, DProps, RProps, UProps, KV } from '@/types';
 
-// export const FORM_PROPS = {
-//     done: {
-//         type: Function as PropType<CProps['done']>,
-//         required: true,
-//     },
-//     before: {
-//         type: Function as PropType<CProps['before']>,
-//         default: () => void 0,
-//     },
-
-//     formProps: {
-//         type: Object as PropType<CProps['formProps']>,
-//     },
-
-//     modelValue: {
-//         type: Object as PropType<CProps['modelValue']>,
-//         required: true,
-//     },
-
-//     items: {
-//         type: Function as PropType<CProps['items']>,
-//         required: true,
-//     },
-// };
-
-
-export function useForm(done: CProps['done'], onSuccess: (formData: KV) => void, onFail: (error: string) => void, onReset = () => { }) {
+export function useForm(done: CProps['done'], onSuccess: (formData: KV) => void, onFail: (error?: string) => void, onReset = () => { }) {
     const nFormRef = ref<typeof NForm>();
     const defaultFormData = ref<KV>({});
     // 提交中
@@ -42,45 +16,40 @@ export function useForm(done: CProps['done'], onSuccess: (formData: KV) => void,
     // 保存新增
     async function save() {
         const formRef = nFormRef.value?.formRef;
-
-
         if (!formRef) return;
         isSubmitting.value = true;
         // 验证表单
-        const [error] = await to(formRef.validateFields());
-        formRef.scrollToField('usersLoginname');
-        if (null !== error) {
-            isSubmitting.value = false;
-            console.log(error);
-            return;
-        }
-        // 保存
-        try {
-            const [error1, data1] = await to(done(formData.value));
-            if (null !== error1) {
+        {
+            const [error] = await to(formRef.validateFields());
+            if (null !== error) {
                 isSubmitting.value = false;
-                console.log(error1);
+                console.log(error);
                 return;
             }
-            if (!Array.isArray(data1)) {
-                throw '"请检查done"函数的返回值格式,预期[boolean,string]!';
-            }
-
-            const [isSuccess, msg] = data1;
-            if (isSuccess) {
-                message.success(msg);
-                reset();
-                onSuccess(formData.value)
-            } else {
-                message.error(msg);
-                onFail(msg);
-            }
-            isShow.value = false;
-        } catch (error) {
-            console.log(error);
-        } finally {
-            isSubmitting.value = false;
         }
+
+        // 保存
+        const [error, data] = await to(done(formData.value));
+        if (null !== error) {
+            isSubmitting.value = false;
+            throw error;
+        }
+        if (!Array.isArray(data)) {
+            isSubmitting.value = false;
+            throw '"请检查done"函数的返回值格式,预期[boolean,string]!';
+        }
+
+        const [isSuccess, msg] = data;
+        if (isSuccess) {
+            msg && message.success(msg);
+            reset();
+            onSuccess(formData.value)
+        } else {
+            msg && message.error(msg);
+            onFail(msg);
+        }
+        isShow.value = false;
+        isSubmitting.value = false;
     }
 
     function reset() {
@@ -124,7 +93,7 @@ export function walkTree<Node extends { children?: Node[] }>(nodes: Node[], each
     }
 }
 export function _warn(...message: any) {
-    console.warn(...message)
+    console.warn('[🔊v-curd]: ',...message)
 }
 
 
@@ -145,6 +114,6 @@ export function defineD(config: DProps): DProps {
 }
 
 
-export function useCache(){
-    
+export function useCache() {
+
 }
