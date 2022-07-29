@@ -31,11 +31,6 @@ const primaryKey = 'id';
 const r = defineR({
   columns: [
     {
-      title: 'id',
-      dataIndex: 'id',
-    },
-
-    {
       title: 'name',
       dataIndex: 'name',
     },
@@ -43,7 +38,6 @@ const r = defineR({
     {
       title: '操作',
       key: 'operation',
-      fixed: 'right',
       width: 250,
     },
   ],
@@ -66,42 +60,36 @@ const r = defineR({
 
 ### primaryKey(主键)
 
-**必填**, ant 中的`a-table`需要, 选用数据中的能"**表示唯一的id**"字段即可.
+**必填项**, ant 中的`a-table`需要, 选用数据中的能"**表示唯一的id**"字段即可.
+
+![image](https://user-images.githubusercontent.com/8264787/181693782-c4680197-4e26-49e9-bc94-ee86aaa150c9.png)
 
 ### r(读取)
 
-**必填**, 值是个对象, 用来配置表格, 用`defineR`函数来定义,包含如下字段:
-
-- [columns , 表格字段配置, 对应ant中table组件的columns](https://www.antdv.com/components/table-cn#Column)
-- [hideRowSelection , 控制每行 checkbox 显隐](./docs/r.md)
-- [conditionItems , 搜索条件表单结构数据](./docs/items.md)
-- [done , 列表接口数据处理](./docs/r.md)
-- [getOne , 详情接口数据处理](./docs/r.md)
-- [tableProps , 🐜ant 的 table 组件完整配置](https://www.antdv.com/components/table-cn#Table)
-- [drawerProps, 🐜ant 的 drawer 组件完整配置, 此处对应"详情对话框"](https://www.antdv.com/components/drawer-cn#API)
+**必填项**, 主要配置"表格"和"数据", 这里的表格实际就是🐜ant的table组件, 使用`defineR`函数定义.
 
 ```typescript
 const r = defineR({
+  // 列配置
   columns: [{ title: 'name', dataIndex: 'name' }],
-  tableProps: {},
-  hideRowSelection: true,
+
+  // 筛选条件配置
   conditionItems: [{ name: 'name', is: 'a-input' }],
+
+  // 列表接口数据处理
   async done() {
-    const { data } = await http('/role');
-    return { list: data.list, total: data.total };
+    const { data } = await http('/user');
+    return { list: data.xxList, total: data.xxTotal };
   },
 });
 ```
 
+[查看"r"的文档](./docs/r.md)
+
+
 ### c(新增)
 
 **非必填**, 用来构造"新建"表单,用`defineC`函数来定义.
-
-- [before, 表单显示前的钩子函数]()
-- [modalProps, 🐜ant 的 modal 组件完整配置](https://www.antdv.com/components/modal-cn#API)
-- [formProps, 🐜ant 的 form 组件完整配置](https://www.antdv.com/components/form-cn#API)
-- [items, 配置表单每一项的组件](./docs/items.md)
-- [done, 点击"新增"按钮后触发]()
 
 ```typescript
 const c = defineC({
@@ -117,18 +105,21 @@ const c = defineC({
     { is: 'a-input', name: 'userName', label: '账号', rules: [{ required: true, message: '必填项' }] },
     { is: 'a-input', name: 'realName', label: '姓名' },
 ```
+[查看"c"的文档](./docs/c.md)
 
 ### u(编辑)
 
-**非必填**, 用来构造"编辑"表单,用`defineU`函数来定义.[和"c"的配置一样](#c新增), 除了`modalProps`这里是`drawerProps`
+**非必填**, 用来构造"编辑"表单,用`defineU`函数来定义.基本和"**c**"的配置一样.
 
-- [drawerProps, 🐜ant 的 drawer 组件完整配置, 在此对应"编辑对话框"](https://www.antdv.com/components/drawer-cn#API)
+[查看"u"的文档](./docs/u.md)
 
 ### d(删除)
 
-**非必填**, 用来配置"删除操作",用`defineD`函数来定义.
+**非必填**, 用来配置"删除操作",用`defineD`函数来定义. `d`暂只有一个属性`done`:
 
-- done, 点击"删除"按钮后触发
+#### done
+
+**必填项**, `done`是个函数, 点击"删除"按钮后触发, 函数内需要写请求删除接口的逻辑.
 
 ```typescript
 const d = defineD({
@@ -146,3 +137,12 @@ const d = defineD({
   },
 });
 ```
+可以通过done的参数来判断是批量删除还是单行删除.
+
+**特别注意**
+
+1. `done`必须是一个返回"**promise**"的函数, 也可以用"async", 其返回值也是"**promise**".
+2. `done`函数的返回值必须是`[boolean,string?]`格式, "boolean"用来表示是否操作成功, "string"是选填,是成功/失败后消息框显示的文字, 如果不填, 不进行消息显示.
+   ![image](https://user-images.githubusercontent.com/8264787/181669190-7e374ccf-0a5e-4680-9fa3-83344fedb296.png)
+
+

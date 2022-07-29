@@ -1,10 +1,44 @@
 # r
 
-表格数据显示配置, 其中"columns / done"为**必填项**.
+表格配置.
+
+**必填**
+- [columns,  表格列配置](#columns)
+- [done, 列表接口数据处理](#done)
+
+**选填**
+- [conditionItems, 搜索条件表单结构数据](#conditionitems)
+- [hideRowSelection, 控制每行checkbox显隐](#hiderowselection)
+- [tableProps, 🐜ant 的 modal 组件完整配置](#tableprops)
+- [drawerProps, 🐜ant 的 form 组件完整配置](#drawerProps)
+- [getOne, 详情接口数据处理](#getone)
+
 
 ## columns
 
 **必填项**, 就是[ant 中 table 组件的 columns 字段](https://www.antdv.com/components/table-cn#Column),用来配置列.
+
+```typescript
+const r = defineR({
+  columns: [
+    {
+      title: 'name',
+      dataIndex: 'name',
+    },
+
+    {
+      title: '操作',
+      key: 'operation',
+      width: 250,
+    },
+  ],
+});
+```
+### 需要特别注意
+
+`columns`数组的最后一个元素是用来给"编辑 / 删除"按钮占位的,你可以移动他在数组中的位置, 但是"key"的值必须是"operation".
+
+如果你的表格不需要编辑和删除, 那么删除这个元素即可.
 
 ## done
 
