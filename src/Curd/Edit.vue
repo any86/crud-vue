@@ -39,6 +39,7 @@ async function show(params: KV) {
   isLoading.value = true;
   errorMessage.value = '';
   try {
+    setDefault(params);
     // 前置操作,
     // 可用来获取默认值
     if (props.before) {
