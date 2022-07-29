@@ -72,11 +72,11 @@ const r = defineR({
 
 **必填**, 值是个对象, 用来配置表格, 用`defineR`函数来定义,包含如下字段:
 
-- [columns , 表格字段配置, 对应ant中table组件的columns]()
-- [hideRowSelection , 控制每行 checkbox 显隐]()
+- [columns , 表格字段配置, 对应ant中table组件的columns](https://www.antdv.com/components/table-cn#Column)
+- [hideRowSelection , 控制每行 checkbox 显隐](./docs/r.md)
 - [conditionItems , 搜索条件表单结构数据](./docs/items.md)
-- [done , 列表接口数据处理]()
-- [getOne , 详情接口数据处理]()
+- [done , 列表接口数据处理](./docs/r.md)
+- [getOne , 详情接口数据处理](./docs/r.md)
 - [tableProps , 🐜ant 的 table 组件完整配置](https://www.antdv.com/components/table-cn#Table)
 - [drawerProps, 🐜ant 的 drawer 组件完整配置, 此处对应"详情对话框"](https://www.antdv.com/components/drawer-cn#API)
 
