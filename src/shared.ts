@@ -7,12 +7,11 @@ import type { CProps, DProps, RProps, UProps, KV } from '@/types';
 
 export function useForm(done: CProps['done'], onSuccess: (formData: KV) => void, onFail: (error?: string) => void, onReset = () => { }) {
     const nFormRef = ref<typeof NForm>();
-    const defaultFormData = ref<KV>({});
     // 提交中
     const isSubmitting = ref(false);
     const isShow = ref(false);
     // 默认值
-    const formData = ref(cloneDeep(defaultFormData.value));
+    const formData = ref<KV>({});
     // 保存新增
     async function save() {
         const formRef = nFormRef.value?.formRef;
@@ -57,8 +56,8 @@ export function useForm(done: CProps['done'], onSuccess: (formData: KV) => void,
         nFormRef.value?.reset();
     }
 
-    function setDefault(formData: KV) {
-        defaultFormData.value = formData;
+    function setDefault(newFormData: KV) {
+        formData.value = cloneDeep(newFormData);
     }
 
     return {
@@ -93,7 +92,7 @@ export function walkTree<Node extends { children?: Node[] }>(nodes: Node[], each
     }
 }
 export function _warn(...message: any) {
-    console.warn('[🔊v-curd]: ',...message)
+    console.warn('[🔊v-curd]: ', ...message)
 }
 
 
