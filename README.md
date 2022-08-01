@@ -26,7 +26,7 @@ npm i v-curd -D
 
 ```vue
 <script setup lang="ts">
-import curd from 'v-curd';
+import curd,{defineR} from 'v-curd';
 const primaryKey = 'id';
 const r = defineR({
   columns: [
