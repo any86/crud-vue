@@ -54,17 +54,29 @@ const r = defineR({
 </template>
 ```
 
-## Props
+## API
+
+-   **Props**
+    -   [primaryKey(主键)](#primarykey主键)
+    -   [r(读取)](#r读取)
+    -   [c(新增)](#c新增)
+    -   [u(编辑)](#u编辑)
+    -   [d(删除)](#d删除)
+-   **Slots**
+    -   [one(详情)](#one)
+    -   [row-buttons-before(表格行按钮)](#row-buttons-before)
+
+### Props
 
 通过配置"v-curd"组件的"**c/u/r/d**"4 个字段实现"增删改查".
 
-### primaryKey(主键)
+#### primaryKey(主键)
 
 **必填项**, ant 中的`a-table`需要, 选用数据中的能"**表示唯一的 id**"字段即可.
 
 ![image](https://user-images.githubusercontent.com/8264787/181693782-c4680197-4e26-49e9-bc94-ee86aaa150c9.png)
 
-### r(读取)
+#### r(读取)
 
 **必填项**, 主要配置"表格"和"数据", 这里的表格实际就是 🐜ant 的 table 组件, 使用`defineR`函数定义.
 
@@ -86,7 +98,7 @@ const r = defineR({
 
 [查看"r"的文档](./docs/r.md)
 
-### c(新增)
+#### c(新增)
 
 **非必填**, 用来构造"新建"表单,用`defineC`函数来定义.
 
@@ -107,17 +119,17 @@ const c = defineC({
 
 [查看"c"的文档](./docs/c.md)
 
-### u(编辑)
+#### u(编辑)
 
 **非必填**, 用来构造"编辑"表单,用`defineU`函数来定义.基本和"**c**"的配置一样.
 
 [查看"u"的文档](./docs/u.md)
 
-### d(删除)
+#### d(删除)
 
 **非必填**, 用来配置"删除操作",用`defineD`函数来定义. `d`暂只有一个属性`done`:
 
-#### done
+##### done
 
 **必填项**, `done`是个函数, 点击"删除"按钮后触发, 函数内需要写请求删除接口的逻辑.
 
@@ -146,9 +158,9 @@ const d = defineD({
 2. `done`函数的返回值必须是`[boolean,string?]`格式, "boolean"用来表示是否操作成功, "string"是选填,是成功/失败后消息框显示的文字, 如果不填, 不进行消息显示.
    ![image](https://user-images.githubusercontent.com/8264787/181669190-7e374ccf-0a5e-4680-9fa3-83344fedb296.png)
 
-## Slots
+### Slots
 
-### one
+#### one
 
 `r.getOne`函数返回的数据会被传递到`one`插槽上.
 
@@ -167,25 +179,24 @@ defineR({
 </v-curd>
 ```
 
-### row-buttons-before
+#### row-buttons-before
 
 表格每行按钮的最前面位置, 一般用来加入自定义按钮.
 
 ```vue
 <template>
-  <v-curd>
-      <template #row-buttons-before>
-        <a-button @click="config">配置</a-button>
-      </template>
-  </v-curd>
+    <v-curd>
+        <template #row-buttons-before>
+            <a-button @click="config">配置</a-button>
+        </template>
+    </v-curd>
 </template>
 
 <script setup>
-function config(){
-  alert('配置');
+function config() {
+    alert('配置');
 }
 </script>
 ```
 
 ![image](https://user-images.githubusercontent.com/8264787/182507703-34bfeb98-d424-43de-a563-b644ecd8ce8b.png)
-
