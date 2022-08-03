@@ -46,12 +46,6 @@ const emit = defineEmits<{
   (type: 'show-one', one: KV): void;
 }>();
 
-const tableRef = ref();
-function toggleTableFull() {
-  console.log(tableRef.value.$el);
-  toggleFull(tableRef.value.$el);
-}
-
 // 显示前
 const isLoading = ref(false);
 const columnConfig = ref(cloneDeep(props.r.columns)!);
@@ -128,6 +122,17 @@ function onPageSizeChange(current: number, size: number) {
   pageCurrent.value = 1;
 }
 
+
+// 默认展开低一层
+const expandedRowKeys = ref<string[]>([]);
+const {primaryKey} = props
+function expandedRow(list:KV[]){
+  list.forEach(row=>{
+    expandedRowKeys.value.push(row[primaryKey]);
+  })
+}
+
+
 // 重置条件
 // 并加载数据
 async function reset() {
@@ -147,6 +152,7 @@ async function getTableData() {
     dataSouce.value = list;
     isTableLoading.value = false;
     pageCount.value = Number(total);
+    expandedRow(list)
   } catch (error) {
     // props.r.onError(error);
     // message.error(error as string);
@@ -246,6 +252,8 @@ async function exportExcelFile() {
   xlsx.writeFile(book, 'data.xlsx', { bookType: 'xlsx', type: 'binary' });
 }
 // const = useColumnSetting();
+
+
 </script>
 
 <template>
@@ -337,11 +345,11 @@ async function exportExcelFile() {
     </n-form>
     <!-- 表格数据 -->
     <a-table
-      ref="tableRef"
       bordered
       :loading="isTableLoading"
       :columns="columnConfig"
       :dataSource="dataSouce"
+      v-model:expandedRowKeys="expandedRowKeys"
       v-bind="otherTableProps"
     >
       <template #bodyCell="{ column, record }">
