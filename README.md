@@ -8,7 +8,7 @@
 
 [demo](https://v-curd.vercel.app/)
 
-[vue-admin](https://vue-admin-zeta.vercel.app/)
+[vue-admin](https://v-admin-sage.vercel.app/)
 
 ## 安装
 
