@@ -26,66 +26,65 @@ npm i v-curd -D
 
 ```vue
 <script setup lang="ts">
-import curd,{defineR} from 'v-curd';
+import curd, { defineR } from 'v-curd';
 const primaryKey = 'id';
 const r = defineR({
-  columns: [
-    {
-      title: 'name',
-      dataIndex: 'name',
-    },
+    columns: [
+        {
+            title: 'name',
+            dataIndex: 'name',
+        },
 
-    {
-      title: '操作',
-      key: 'operation',
-      width: 250,
-    },
-  ],
+        {
+            title: '操作',
+            key: 'operation',
+            width: 250,
+        },
+    ],
 
-  async done() {
-    const { data } = await http('/role');
-    return { list: data.list, total: data.total };
-  },
+    async done() {
+        const { data } = await http('/role');
+        return { list: data.list, total: data.total };
+    },
 });
 </script>
 
 <template>
-  <curd :primaryKey="primaryKey" :r="r"></curd>
+    <curd :primaryKey="primaryKey" :r="r"></curd>
 </template>
 ```
 
-## API
+## Props
 
 通过配置"v-curd"组件的"**c/u/r/d**"4 个字段实现"增删改查".
 
 ### primaryKey(主键)
 
-**必填项**, ant 中的`a-table`需要, 选用数据中的能"**表示唯一的id**"字段即可.
+**必填项**, ant 中的`a-table`需要, 选用数据中的能"**表示唯一的 id**"字段即可.
 
 ![image](https://user-images.githubusercontent.com/8264787/181693782-c4680197-4e26-49e9-bc94-ee86aaa150c9.png)
 
 ### r(读取)
 
-**必填项**, 主要配置"表格"和"数据", 这里的表格实际就是🐜ant的table组件, 使用`defineR`函数定义.
+**必填项**, 主要配置"表格"和"数据", 这里的表格实际就是 🐜ant 的 table 组件, 使用`defineR`函数定义.
 
 ```typescript
 const r = defineR({
-  // 列配置
-  columns: [{ title: 'name', dataIndex: 'name' }],
+    // 列配置
+    columns: [{ title: 'name', dataIndex: 'name' }],
 
-  // 筛选条件配置
-  conditionItems: [{ name: 'name', is: 'a-input' }],
+    // 筛选条件配置
+    conditionItems: [{ name: 'name', is: 'a-input' }],
 
-  // 列表接口数据处理
-  async done() {
-    const { data } = await http('/user');
-    return { list: data.xxList, total: data.xxTotal };
-  },
+    // 列表接口数据处理
+    async done() {
+        const { data } = await http('/user');
+        return { list: data.xxList, total: data.xxTotal };
+    },
 });
 ```
 
 [查看"r"的文档](./docs/r.md)
-
 
 ### c(新增)
 
@@ -105,6 +104,7 @@ const c = defineC({
     { is: 'a-input', name: 'userName', label: '账号', rules: [{ required: true, message: '必填项' }] },
     { is: 'a-input', name: 'realName', label: '姓名' },
 ```
+
 [查看"c"的文档](./docs/c.md)
 
 ### u(编辑)
@@ -123,21 +123,22 @@ const c = defineC({
 
 ```typescript
 const d = defineD({
-  async done(idList) {
-    // 判断idList长度区分是否批量删除
-    // 批量删除
-    if (1 < idList.length) {
-      const { data, status } = await http.delete('/user/' + idList.join(','));
-      return [200 === status, data.msg];
-    } else {
-      // 删除一条
-      const { data, status } = await http.delete('/user/' + idList[0]);
-      return [200 === status, data.msg];
-    }
-  },
+    async done(idList) {
+        // 判断idList长度区分是否批量删除
+        // 批量删除
+        if (1 < idList.length) {
+            const { data, status } = await http.delete('/user/' + idList.join(','));
+            return [200 === status, data.msg];
+        } else {
+            // 删除一条
+            const { data, status } = await http.delete('/user/' + idList[0]);
+            return [200 === status, data.msg];
+        }
+    },
 });
 ```
-可以通过done的参数来判断是批量删除还是单行删除.
+
+可以通过 done 的参数来判断是批量删除还是单行删除.
 
 **特别注意**
 
@@ -145,4 +146,46 @@ const d = defineD({
 2. `done`函数的返回值必须是`[boolean,string?]`格式, "boolean"用来表示是否操作成功, "string"是选填,是成功/失败后消息框显示的文字, 如果不填, 不进行消息显示.
    ![image](https://user-images.githubusercontent.com/8264787/181669190-7e374ccf-0a5e-4680-9fa3-83344fedb296.png)
 
+## Slots
+
+### one
+
+`r.getOne`函数返回的数据会被传递到`one`插槽上.
+
+```typescript
+defineR({
+    async getOne() {
+        return { a: 1, b: 2 };
+    },
+});
+```
+
+```html
+<v-curd>
+    <template #one="{a,b}"> 苹果 = {{a}} 香蕉 = {{b}} </template>
+    <!-- 输出 => 苹果 = 1 香蕉 = 2 -->
+</v-curd>
+```
+
+### row-buttons-before
+
+表格每行按钮的最前面位置, 一般用来加入自定义按钮.
+
+```vue
+<template>
+  <v-curd>
+      <template #row-buttons-before>
+        <a-button @click="config">配置</a-button>
+      </template>
+  </v-curd>
+</template>
+
+<script setup>
+function config(){
+  alert('配置');
+}
+</script>
+```
+
+![image](https://user-images.githubusercontent.com/8264787/182507703-34bfeb98-d424-43de-a563-b644ecd8ce8b.png)
 
