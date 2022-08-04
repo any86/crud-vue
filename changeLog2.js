@@ -1,9 +1,11 @@
 import JSON5 from 'json5';
 import { exec, execSync } from 'child_process'
 import fs from 'fs';
-const keys = ['refactor', 'fix', 'perf', 'feat']
+
+
 
 function getLog() {
+    const keys = ['refactor', 'fix', 'perf', 'feat']
     const END_TAG = '--END--'
     const SEPARATOR_TAG = '--SEPARATOR--'
     const cmd = `git log --after="2022-1-3"  --no-merges --date=format:"%Y-%m-%d %H:%M:%S"  --pretty=format:"%B${SEPARATOR_TAG}%cd${SEPARATOR_TAG}%h${SEPARATOR_TAG}%H${END_TAG}"`
@@ -11,59 +13,58 @@ function getLog() {
     const log = logString.split(END_TAG);
     // 删除最后一行空数据
     log.pop();
-    const list = [];
-    for (const row of log) {
-        const oneLogArray = row.split(SEPARATOR_TAG);
+    return _groupLogByTime(log, keys, SEPARATOR_TAG);
 
-        // 删除描述中开头结尾的\n
-        oneLogArray[0] = oneLogArray[0].replace(/^\n/, '').replace(/\s*$/, '');
-        const [message, time, shortHash, hash] = oneLogArray;
-        const oneLog = { message, time, shortHash, hash };
-        for (const key of keys) {
-            if (message.includes(key)) {
-                // 标记类型(fix/feat...)
-                oneLog.type = key;
-            }
-        }
-        list.push(oneLog);
-    }
-    return list
 }
 
-function _groupLogByTime(log) {
+function _groupLogByTime(logArray, keys, SEPARATOR_TAG) {
     // 分组
     const group = {};
 
     // 遍历数据到组
-    for (const row of log) {
-        const { time, message } = row;
-        if (void 0 === group[time]) {
-            group[time] = {};
+    for (const row of logArray) {
+        const rowArray = row.split(SEPARATOR_TAG);
+        // 删除描述中开头结尾的\n
+        rowArray[0] = rowArray[0].replace(/^\n/, '').replace(/\s*$/, '');
+        const [message, time, shortHash, hash] = rowArray;
+        if (!group[time]) {
+            group[time] = [];
         }
-        // 填充数据
-        let pass = false;
+
+        // const rule = RegExp(`^${key}\\s*:\\s*`)
+        group[time].push({
+            message, time, shortHash, hash
+        });
+    }
+    return group;
+}
+
+
+function _groupLog(logArray, keys, SEPARATOR_TAG) {
+    // 分组
+    const group = {};
+    for (const key of keys) group[key] = [];
+
+    // 遍历数据到组
+    for (const row of logArray) {
+        const rowArray = row.split(SEPARATOR_TAG);
+        // 删除描述中开头结尾的\n
+        rowArray[0] = rowArray[0].replace(/^\n/, '').replace(/\s*$/, '');
+        const [message, time, shortHash, hash] = rowArray;
         for (const key of keys) {
             if (message.includes(key)) {
-                group[time][key] = group[time][key] || [];
-                group[time][key].push(row);
-                pass = true;
-                break;
+                const rule = RegExp(`^${key}\\s*:\\s*`)
+                group[key].push({
+                    message: message.replace(rule, ''), time, shortHash, hash
+                });
             }
         }
-
-        if (!pass) {
-            group[time] = null;
-        }
-
     }
     return group;
 }
 
 function genMD(group, title = '更新日志') {
     const md = [`# ${title}`];
-    console.log(group);
-    for(const row of group)
-    return;
 
     if (group.feat.length) {
         md.push(`## 新增功能(${group.feat.length}项)`);
@@ -97,8 +98,9 @@ function genMD(group, title = '更新日志') {
 
 
 const g = getLog()
-const group = _groupLogByTime(g);
-genMD(group)
+
+console.log(g);
+// genMD(g)
 
 
 
