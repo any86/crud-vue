@@ -2,14 +2,8 @@
   "name": "v-curd",
   "version": "0.0.16",
   "type": "module",
-  "main": "dist/v-curd.umd.cjs",
+  "main": "dist/v-curd.cjs",
   "module": "dist/v-curd.js",
-  "exports": {
-    ".": {
-      "import": "dist/v-curd.js",
-      "require": "dist/v-curd.umd.cjs"
-    }
-  },
   "types": "dist/lib.d.ts",
   "files": ["dist"],
   "scripts": {
