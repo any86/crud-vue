@@ -9,7 +9,6 @@
     "dist"
   ],
   "scripts": {
-    "release": "semantic-release-cli setup",
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "build:lib": "vue-tsc --noEmit && vite build --config vite.lib.config.ts",
@@ -29,11 +28,6 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^6.0.1",
-    "@semantic-release/commit-analyzer": "^9.0.2",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^8.0.5",
-    "@semantic-release/release-notes-generator": "^10.0.3",
     "@types/lodash": "^4.14.182",
     "@vitejs/plugin-vue": "^3.0.1",
     "axios": "^0.27.2",
