@@ -9,8 +9,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/lib.ts'),
       name: 'v-curd',
-      formats: ['es','umd'],
-      // the proper extensions will be added
+      formats: ['es','cjs'],
       fileName: 'v-curd'
     },
     rollupOptions: {
