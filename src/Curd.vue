@@ -137,6 +137,7 @@ function expandedRow(list:KV[]){
 // 并加载数据
 async function reset() {
   await conditionFormRef.value?.reset();
+  
   getTableData();
 }
 
@@ -144,6 +145,8 @@ async function reset() {
 async function getTableData() {
   isTableLoading.value = true;
   try {
+    // 清空已选行
+    selectedRowKeys.value = [];
     const { list, total } = await props.r.done({
       pageNum: pageCurrent.value,
       pageSize: pageSize.value,
