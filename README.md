@@ -6,7 +6,7 @@
 
 ## 演示
 
-[demo](https://crud-tawny-ten.vercel.app/)
+[demo](https://crud-vue-topaz.vercel.app/)
 
 [v-admin](https://v-admin-sage.vercel.app/)
 
