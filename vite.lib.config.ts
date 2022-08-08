@@ -8,9 +8,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/lib.ts'),
-      name: 'v-curd',
+      name: 'crud-vue',
       formats: ['es','cjs'],
-      fileName: 'v-curd'
+      fileName: 'crud-vue'
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖

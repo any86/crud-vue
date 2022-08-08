@@ -39,7 +39,7 @@
 
 **必填项**, 值可以是字符串,比如`a-input`对应 ant 组件的 input,如果是`input`, 那么对应原生 input 元素.
 
-其还可以是组件对象, 其实在`v-curd`组件内部, 这个`is`就是对应 vue 中[component 组件的 is](https://staging-cn.vuejs.org/api/built-in-special-elements.html#component).
+其还可以是组件对象, 其实在`crud-vue`组件内部, 这个`is`就是对应 vue 中[component 组件的 is](https://staging-cn.vuejs.org/api/built-in-special-elements.html#component).
 
 ```typescript
 import YourComponent from './YourComponent.vue';

@@ -64,7 +64,7 @@ defineC({
 ```
 
 ## formProps
-`v-curd`的表单是基于"ant"的"form"组件进行的封装, 所以想进一步对form组件设置, 可以通过[formProps](https://www.antdv.com/components/form-cn#API)属性, 比如设置标题文字的宽度:
+`crud-vue`的表单是基于"ant"的"form"组件进行的封装, 所以想进一步对form组件设置, 可以通过[formProps](https://www.antdv.com/components/form-cn#API)属性, 比如设置标题文字的宽度:
 
 ```typescript
 const c = defineC({

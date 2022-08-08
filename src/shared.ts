@@ -92,7 +92,7 @@ export function walkTree<Node extends { children?: Node[] }>(nodes: Node[], each
     }
 }
 export function _warn(...message: any) {
-    console.warn('[🔊v-curd]: ', ...message)
+    console.warn('[🔊crud-vue]: ', ...message)
 }
 
 

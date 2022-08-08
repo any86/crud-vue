@@ -55,7 +55,7 @@ const r = defineR({
 ```
 
 **⚡特别注意**
-1. `done`函数的返回值必须是一个"**promise**", 也可用`async`, 其返回值也是"**promise**", 这样`v-curd`才能等数据加载完毕才显示表格.
+1. `done`函数的返回值必须是一个"**promise**", 也可用`async`, 其返回值也是"**promise**", 这样`crud-vue`才能等数据加载完毕才显示表格.
 2. 函数的参数包含了搜索条件(含分页信息), 需要传给接口.
 ## conditionItems
 
@@ -96,11 +96,11 @@ const r = defineR({
 
 点击"查看"后会执行`getOne`函数, `getOne`函数的返回值会被放到名为"one"的插槽(slot)中.
 ```html
-<v-curd>
+<crud-vue>
     <template #one="oneData">
         {{oneData}}
     </template>
-</v-curd>
+</crud-vue>
 ```
 **⚡特别注意**
 1. `getOne`函数的返回值必须是一个"**promise**", 也可用`async`, 其返回值也是"**promise**".

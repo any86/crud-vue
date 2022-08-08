@@ -1,4 +1,4 @@
-# v-curd
+# crud-vue
 
 🚀 基于 ant-design-vue@3 封装的"**增/删/改/查**"组件.
 
@@ -6,14 +6,14 @@
 
 ## 演示
 
-[demo](https://v-curd.vercel.app/)
+[demo](https://crud-tawny-ten.vercel.app/)
 
-[vue-admin](https://v-admin-sage.vercel.app/)
+[v-admin](https://v-admin-sage.vercel.app/)
 
 ## 安装
 
 ```shell
-npm i v-curd -D
+npm i crud-vue -D
 ```
 
 ## 快速开始
@@ -22,11 +22,11 @@ npm i v-curd -D
 
 `columns`就是"ant"组件库中 table 组件的配置, 用来配置列.
 
-`done`是"v-curd"定义的字段, 值是个函数, 用来格式化接口返回数据, 函数返回`{total:10,list:[{xx:1}]}`这样的数据表格就会显示.
+`done`是"crud-vue"定义的字段, 值是个函数, 用来格式化接口返回数据, 函数返回`{total:10,list:[{xx:1}]}`这样的数据表格就会显示.
 
 ```vue
 <script setup lang="ts">
-import curd, { defineR } from 'v-curd';
+import curd, { defineR } from 'crud-vue';
 const primaryKey = 'id';
 const r = defineR({
     columns: [
@@ -68,7 +68,7 @@ const r = defineR({
 
 ### Props
 
-通过配置"v-curd"组件的"**c/u/r/d**"4 个字段实现"增删改查".
+通过配置"crud-vue"组件的"**c/u/r/d**"4 个字段实现"增删改查".
 
 #### primaryKey(主键)
 
@@ -173,10 +173,10 @@ defineR({
 ```
 
 ```html
-<v-curd>
+<crud-vue>
     <template #one="{a,b}"> 苹果 = {{a}} 香蕉 = {{b}} </template>
     <!-- 输出 => 苹果 = 1 香蕉 = 2 -->
-</v-curd>
+</crud-vue>
 ```
 
 #### row-buttons-before
@@ -185,11 +185,11 @@ defineR({
 
 ```vue
 <template>
-    <v-curd>
+    <crud-vue>
         <template #row-buttons-before>
             <a-button @click="config">配置</a-button>
         </template>
-    </v-curd>
+    </crud-vue>
 </template>
 
 <script setup>
