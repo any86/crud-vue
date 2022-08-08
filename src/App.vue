@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import { h, reactive, ref, resolveComponent } from 'vue';
-import Curd, { defineC, defineD, defineR, defineU } from '@/lib';
+import Crud, { defineC, defineD, defineR, defineU } from '@/lib';
 import Detail from '@/Detail.vue';
 import http from '@/http';
 import { message } from 'ant-design-vue';
@@ -297,7 +297,7 @@ function getContainer() {
         </p>
 
         <div class="box" id="box">
-            <curd v-bind="{ primaryKey, c, u, r, d }">
+            <crud v-bind="{ primaryKey, c, u, r, d }">
                 <!-- 详情 -->
                 <template #one="one">
                     <Detail :data-source="one" />
@@ -308,7 +308,7 @@ function getContainer() {
                       <tool-outlined/>
                     配置</a-button>
                 </template>
-            </curd>
+            </crud>
         </div>
     </a-config-provider>
 </template>

@@ -5,7 +5,7 @@ import { ref, reactive, watch, computed, onBeforeMount, type PropType } from 'vu
 import { toggleFull } from 'be-full';
 import { message } from 'ant-design-vue';
 import * as xlsx from 'xlsx';
-import ColumnSort from '@/Curd/ColumnSort.vue';
+import ColumnSort from '@/Crud/ColumnSort.vue';
 import {
   EyeOutlined,
   EditOutlined,
@@ -14,9 +14,9 @@ import {
   PlusOutlined,
   RedoOutlined,
 } from '@ant-design/icons-vue';
-import Add from './Curd/Add.vue';
-import Edit from './Curd/Edit.vue';
-import NForm from './Curd/VForm.vue';
+import Add from './Crud/Add.vue';
+import Edit from './Crud/Edit.vue';
+import NForm from './Crud/VForm.vue';
 import type { CProps, DProps, RProps, UProps, KV } from '@/types';
 import { _warn } from '@/shared';
 // 表格需要的数据源
@@ -260,7 +260,7 @@ async function exportExcelFile() {
 </script>
 
 <template>
-  <a-card class="curd" :loading="isLoading">
+  <a-card class="crud" :loading="isLoading">
     <a-drawer v-if="r.getOne" v-model:visible="isShowOne" title="详情" width="50%" v-bind="r.drawerProps">
       <a-skeleton :loading="isOneLoading" active>
         <slot name="one" v-bind="one"></slot>
@@ -380,7 +380,7 @@ async function exportExcelFile() {
 </template>
 
 <style lang="scss">
-.curd {
+.crud {
   &__header {
     background-color: #fff;
   }

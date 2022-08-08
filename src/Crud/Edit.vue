@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { type FormProps, type DrawerProps } from 'ant-design-vue';
 import { ArrowRightOutlined } from '@ant-design/icons-vue';
 import { useForm } from '@/shared';
-import NForm from '@/Curd/VForm.vue';
+import NForm from '@/Crud/VForm.vue';
 import type { KV, NFormItem, UProps } from '@/types';
 
 interface Props extends UProps {

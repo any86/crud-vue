@@ -26,7 +26,7 @@ npm i crud-vue -D
 
 ```vue
 <script setup lang="ts">
-import curd, { defineR } from 'crud-vue';
+import crud, { defineR } from 'crud-vue';
 const primaryKey = 'id';
 const r = defineR({
     columns: [
@@ -50,7 +50,7 @@ const r = defineR({
 </script>
 
 <template>
-    <curd :primaryKey="primaryKey" :r="r"></curd>
+    <crud :primaryKey="primaryKey" :r="r"></crud>
 </template>
 ```
 

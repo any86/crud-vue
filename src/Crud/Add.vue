@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type FormProps, type ModalProps } from 'ant-design-vue';
-import NForm from '@/Curd/VForm.vue';
+import NForm from '@/Crud/VForm.vue';
 import { useForm } from '@/shared';
 import type { NFormItem, KV, CProps } from '@/types';
 
