@@ -13,7 +13,7 @@
 ## 安装
 
 ```shell
-npm i crud-vue -D
+npm i crud-vue -S
 ```
 
 ## 快速开始
