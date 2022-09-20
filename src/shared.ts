@@ -3,7 +3,7 @@ import to from 'await-to-js';
 import { message } from 'ant-design-vue';
 import NForm from '@/Crud/VForm.vue';
 import { cloneDeep } from 'lodash';
-import type { CProps, DProps, RProps, UProps, KV } from '@/types';
+import type { CProps, DProps, RProps, UProps, KV, NFormItem } from '@/types';
 
 export function useForm(done: CProps['done'], onSuccess: (formData: KV) => void, onFail: (error?: string) => void, onReset = () => { }) {
     const nFormRef = ref<typeof NForm>();
@@ -112,7 +112,6 @@ export function defineD(config: DProps): DProps {
     return config;
 }
 
-
-export function useCache() {
-
+export function defineF<T = NFormItem>(formItems: T[]): T[] {
+    return formItems;
 }

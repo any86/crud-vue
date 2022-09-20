@@ -1,6 +1,6 @@
 {
   "name": "crud-vue",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "main": "dist/crud-vue.cjs",
   "module": "dist/crud-vue.js",
