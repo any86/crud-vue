@@ -112,6 +112,6 @@ export function defineD(config: DProps): DProps {
     return config;
 }
 
-export function defineF<T = NFormItem>(formItems: T[]): T[] {
-    return formItems;
+export function defineF<T extends NFormItem>(formItems: T[]): () => T[] {
+    return () => formItems;
 }
