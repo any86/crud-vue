@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 type ResponseData = {
   userId: string;
   age: number;
@@ -19,8 +18,6 @@ type ResponseData = {
 
 defineProps<{ dataSource: ResponseData }>();
 
-const isShow = ref(false);
-const isLoading = ref(false);
 const STATE_MAP = {
   0: ['#999', '锁定'],
   1: ['#009688', '正常'],
