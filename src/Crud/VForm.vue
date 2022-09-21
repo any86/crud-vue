@@ -25,8 +25,43 @@ watch(
   }
 );
 
+
+
 // 结构数据
 const formItems = computed(() => props.items(formData.value));
+
+// 根据label字数确定标题宽度
+const labelCol = computed(() => {
+  const labelSizes: number[] = [];
+  formItems.value.forEach(({ label }) => {
+    if (label) {
+      labelSizes.push(calcStringSize(label))
+    }
+  });
+  const max = Math.max(...labelSizes);
+  return { span: Math.ceil(max/3) };
+});
+// console.log(labelCol);
+
+/**
+ * 计算字符长度
+ * @param inputString 输入字符串
+ * @return 长度
+ */
+function calcStringSize(inputString: string):number {
+  var len = 0;
+  for (var i = 0; i < inputString.length; i++) {
+    var c = inputString.charCodeAt(i);
+    //单字节加1 
+    if ((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
+      len++;
+    } else {
+      len += 2;
+    }
+  }
+  return len;
+}
+
 watch(
   formItems,
   (formItems) => {
@@ -75,23 +110,19 @@ defineExpose({ formRef, reset, toggleItem });
 </script>
 
 <template>
-  <a-form v-if="!isLoading && void 0 !== formData" ref="formRef" :model="formData" v-bind="formProps">
-  <!-- {{ formData }} -->
+  <a-form v-if="!isLoading && void 0 !== formData" ref="formRef" :model="formData" :labelCol="labelCol" v-bind="formProps"
+    >
+    <!-- {{ formData }} -->
     <template v-for="item in formItems" :key="item.name">
       <a-form-item v-if="!('toggle' in item && !isShowFormItem)" colon :id="item.name" v-bind="item">
         <!-- {{formData[item.name]}} -->
 
         <!-- 表单类的组件 -->
-        <component
-          v-if="item.name"
-          :is="item.is"
-          v-bind="{
-            allowClear: true,
-            placeholder: `请输入${item.label || ''}`,
-            ...item.props,
-          }"
-          v-model:[getVModelName(item)]="formData[item.name as string]"
-        >
+        <component v-if="item.name" :is="item.is" v-bind="{
+          allowClear: true,
+          placeholder: `请输入${item.label || ''}`,
+          ...item.props,
+        }" v-model:[getVModelName(item)]="formData[item.name as string]">
         </component>
         <!-- 纯显示组件 -->
         <component v-else :is="item.is" v-bind="item.props"></component>
