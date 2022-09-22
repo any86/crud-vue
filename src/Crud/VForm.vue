@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import type { FormInstance, FormProps } from 'ant-design-vue';
 import type { NFormItem, KV } from '@/types';
 import cloneDeep from 'lodash/cloneDeep';
@@ -62,10 +62,31 @@ function calcStringSize(inputString: string):number {
   return len;
 }
 
+      // 如果items减少,
+      // 那么同步删除formData上对应数据
+const formItemNamesMap = ref<Record<string,1>>({});
+watch(formItemNamesMap,validNamesMap=>{
+  for(const name in formData.value){
+    if(1 !== validNamesMap[name]){
+      Reflect.deleteProperty(formData.value,name);
+      // delete formData.value[name];
+    }
+  }
+})
+
+
 watch(
   formItems,
   (formItems) => {
+    formItemNamesMap.value = {};
     formItems.forEach((item) => {
+
+      // 记录有效的键值
+      if(item.name){
+        formItemNamesMap.value[item.name] = 1;
+      }
+
+      // 同步默认值
       if (void 0 !== item.defaultValue) {
         if (void 0 === item.name) {
           console.warn('表单组件缺少name字段');
