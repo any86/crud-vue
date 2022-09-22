@@ -12,7 +12,7 @@ interface Props extends UProps {
   drawerProps?: DrawerProps;
   modelValue: KV;
   items: (formData: KV) => NFormItem[];
-  done: (formData: KV) => Promise<[boolean, string?]>;
+  done: (formData: KV, row:KV) => Promise<[boolean, string?]>;
 }
 interface Emits {
   (type: 'success', formData: KV): void;
@@ -22,8 +22,11 @@ interface Emits {
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
+const currentRow = ref<KV>({});
+
 const { nFormRef, isShow, isSubmitting, save, reset, formData, setDefault } = useForm(
   props.done,
+  currentRow,
   (formData) => {
     emit('success', formData);
   },
@@ -34,16 +37,21 @@ const { nFormRef, isShow, isSubmitting, save, reset, formData, setDefault } = us
 
 const isLoading = ref(false);
 const errorMessage = ref('');
-async function show(params: KV) {
+/**
+ * 显示表单
+ * @param row 当前行
+ */
+async function show(row: KV) {
   isShow.value = true;
   isLoading.value = true;
   errorMessage.value = '';
+  currentRow.value = row;
   try {
-    setDefault(params);
+    setDefault(row);
     // 前置操作,
     // 可用来获取默认值
     if (props.before) {
-      const data = await props.before(params);
+      const data = await props.before(row);
       if (data) {
         setDefault(!!data ? data : {});
         formData.value = data;

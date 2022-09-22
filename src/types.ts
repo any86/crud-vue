@@ -20,7 +20,6 @@ interface UC {
   // modelValue不暴露给defineC函数
   // modelValue: KV;
   items: (formData: KV) => NFormItem[];
-  done: (formData: KV) => Promise<[boolean, string?]>;
 }
 
 /**
@@ -29,7 +28,7 @@ interface UC {
 export interface CProps extends UC {
   modalProps?: ModalProps;
   before?: ((formData: KV) => Promise<void>) | (() => void);
-
+  done: (formData: KV) => Promise<[boolean, string?]>;
 }
 
 /**
@@ -38,11 +37,12 @@ export interface CProps extends UC {
 export interface UProps extends UC {
   drawerProps?: DrawerProps;
   before?: ((formData: KV) => Promise<KV>) | (() => void);
+  done: (formData: KV, currentRow: KV) => Promise<[boolean, string?]>;
 }
 
 export interface RProps extends TableProps {
   before?: () => void;
-  drawerProps?:DrawerProps;
+  drawerProps?: DrawerProps;
   // 筛选条件配置
   conditionItems?: (shared?: KV) => NFormItem[];
   tableProps?: TableProps

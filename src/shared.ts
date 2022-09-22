@@ -1,11 +1,11 @@
-import { ref, type PropType } from 'vue'
+import { ref, type Ref } from 'vue'
 import to from 'await-to-js';
 import { message } from 'ant-design-vue';
 import NForm from '@/Crud/VForm.vue';
 import { cloneDeep } from 'lodash';
 import type { CProps, DProps, RProps, UProps, KV, NFormItem } from '@/types';
 
-export function useForm(done: CProps['done'], onSuccess: (formData: KV) => void, onFail: (error?: string) => void, onReset = () => { }) {
+export function useForm(done: UProps['done'], currentRow: Ref<KV> | undefined, onSuccess: (formData: KV) => void, onFail: (error?: string) => void, onReset = () => { }) {
     const nFormRef = ref<typeof NForm>();
     // 提交中
     const isSubmitting = ref(false);
@@ -28,7 +28,7 @@ export function useForm(done: CProps['done'], onSuccess: (formData: KV) => void,
         }
 
         // 保存
-        const [error, data] = await to(done(formData.value));
+        const [error, data] = await to(done(formData.value, currentRow ? currentRow.value : {}));
         if (null !== error) {
             isSubmitting.value = false;
             throw error;

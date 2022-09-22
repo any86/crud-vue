@@ -254,9 +254,8 @@ const u = defineU({
         return data;
     },
     // formProps: { labelCol: { span: 2 } },
-    async done(formData) {
-        const { [primaryKey]: id, ...kv } = formData;
-        const { data, status } = await http.put('/user/' + id, kv);
+    async done(formData,row) {
+        const { data, status } = await http.put('/user/'+row[primaryKey], formData);
         return [200 === status, data.msg];
     },
 
