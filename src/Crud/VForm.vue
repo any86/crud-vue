@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue';
+import { onBeforeMount, onMounted, reactive, ref, watch } from 'vue';
 import type { FormInstance, FormProps } from 'ant-design-vue';
 import type { NFormItem, KV } from '@/types';
 import cloneDeep from 'lodash/cloneDeep';
@@ -17,6 +17,12 @@ const props = withDefaults(defineProps<Props>(), {
 
 const isLoading = ref(true);
 const formData = ref<KV>(props.modelValue || {});
+// 对表单中删除的字段和数据进行备份,
+// 当FormItem删除的时候formData会删除对应值,
+// 而formDataBackup会备份,
+// 这样当FormItem再次出现的时候, 
+// 从formDataBackup同步对应值到formData
+const formDataBackup = ref<KV>({})
 const defaultValueMap: KV = !!props.modelValue ? cloneDeep(props.modelValue) : {};
 watch(
   () => props.modelValue,
@@ -39,7 +45,7 @@ const labelCol = computed(() => {
     }
   });
   const max = Math.max(...labelSizes);
-  return { span: Math.ceil(max/3) };
+  return { span: Math.ceil(max / 3) };
 });
 // console.log(labelCol);
 
@@ -48,7 +54,7 @@ const labelCol = computed(() => {
  * @param inputString 输入字符串
  * @return 长度
  */
-function calcStringSize(inputString: string):number {
+function calcStringSize(inputString: string): number {
   var len = 0;
   for (var i = 0; i < inputString.length; i++) {
     var c = inputString.charCodeAt(i);
@@ -62,42 +68,41 @@ function calcStringSize(inputString: string):number {
   return len;
 }
 
-      // 如果items减少,
-      // 那么同步删除formData上对应数据
-const formItemNamesMap = ref<Record<string,1>>({});
-watch(formItemNamesMap,validNamesMap=>{
-  for(const name in formData.value){
-    if(1 !== validNamesMap[name]){
-      Reflect.deleteProperty(formData.value,name);
+// 如果items减少,
+// 那么同步删除formData上对应数据
+const formItemNamesMap = ref<Record<string, 1>>({});
+watch(formItemNamesMap, formItemNamesMap => {
+  for (const name in formData.value) {
+    // formData中删除formItems中不存在的表单数据
+    if (1 !== formItemNamesMap[name]) {
+      // 备份删除时候的值
+      formDataBackup.value[name] = formData.value[name];
+      // 删除
+      Reflect.deleteProperty(formData.value, name);
       // delete formData.value[name];
     }
   }
 })
 
+watch(formItems, (formItems) => {
+  // 表单名映射
+  formItemNamesMap.value = {};
 
-watch(
-  formItems,
-  (formItems) => {
-    formItemNamesMap.value = {};
-    formItems.forEach((item) => {
+  formItems.forEach((item) => {
+    const { name, defaultValue } = item;
+    // 同步默认值
+    if (void 0 === name) {
+      console.warn('表单组件缺少name字段');
+    } else {
+      // 记录formItems中存在的键值
+      formItemNamesMap.value[name] = 1;
 
-      // 记录有效的键值
-      if(item.name){
-        formItemNamesMap.value[item.name] = 1;
-      }
-
-      // 同步默认值
-      if (void 0 !== item.defaultValue) {
-        if (void 0 === item.name) {
-          console.warn('表单组件缺少name字段');
-        } else {
-          // 同步items配置中设置的默认值
-          formData.value[item.name] = formData.value[item.name] || item.defaultValue;
-          defaultValueMap[item.name] = formData.value[item.name];
-        }
-      }
-    });
-  },
+      // 重新判断表单值
+      // 恢复之前设置过的值到表单项
+      formData.value[name] = formData.value[name] || formDataBackup.value[name] || defaultValue;
+    }
+  });
+},
   { immediate: true, deep: true }
 );
 
@@ -116,10 +121,12 @@ function getVModelName(item: NFormItem) {
  * 重置表单
  */
 async function reset() {
-  formData.value = cloneDeep(defaultValueMap);
+  // console.log(cloneDeep(defaultValueMap));
+  // formData.value = cloneDeep(defaultValueMap);
   // console.log(formRef.value?.scrollToField);
   // formRef.value?.scrollToField('mouldName')
   formRef.value?.resetFields();
+
 }
 
 const isShowFormItem = ref(false);
@@ -131,8 +138,9 @@ defineExpose({ formRef, reset, toggleItem });
 </script>
 
 <template>
-  <a-form v-if="!isLoading && void 0 !== formData" ref="formRef" :model="formData" :labelCol="labelCol" v-bind="formProps"
-    >
+  <!-- {{ defaultValueMap }} -->
+  <a-form v-if="!isLoading && void 0 !== formData" ref="formRef" :model="formData" :labelCol="labelCol"
+    v-bind="formProps">
     <!-- {{ formData }} -->
     <template v-for="item in formItems" :key="item.name">
       <a-form-item v-if="!('toggle' in item && !isShowFormItem)" colon :id="item.name" v-bind="item">
