@@ -99,7 +99,7 @@ watch(formItems, (formItems) => {
 
       // 重新判断表单值
       // 恢复之前设置过的值到表单项
-      formData.value[name] = formData.value[name] || formDataBackup.value[name] || defaultValue;
+      formData.value[name] = formData.value[name] ?? formDataBackup.value[name] ?? defaultValue;
     }
   });
 },
