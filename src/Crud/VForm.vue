@@ -91,9 +91,7 @@ watch(formItems, (formItems) => {
   formItems.forEach((item) => {
     const { name, defaultValue } = item;
     // 同步默认值
-    if (void 0 === name) {
-      console.warn('表单组件缺少name字段');
-    } else {
+    if (void 0 !== name) {
       // 记录formItems中存在的键值
       formItemNamesMap.value[name] = 1;
 
