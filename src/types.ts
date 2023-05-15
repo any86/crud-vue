@@ -45,6 +45,8 @@ export interface RProps extends TableProps {
   drawerProps?: DrawerProps;
   // 筛选条件配置
   conditionItems?: (shared?: KV) => NFormItem[];
+  // 左侧筛选条件
+  quickConditionItems?: (shared?: KV) => NFormItem[];
   tableProps?: TableProps
   done: (params: KV) => Promise<{ list: KV[], total: number }>;
   hideRowSelection?: boolean;

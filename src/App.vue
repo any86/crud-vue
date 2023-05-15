@@ -169,6 +169,20 @@ const r = defineR({
             key: 'operation',
         },
     ],
+
+    quickConditionItems: () => {
+        return [{
+            is: 'a-tree',
+            name: 'menuId',
+            modelName: 'selectedKeys',
+            label: '组织架构',
+            props: {
+                defaultExpandAll: true,
+                treeData: [{ key: 1, title: 'aaa', children: [{ key: 31, title: '2222' }, { key: 42, title: '111' }] }, { key: 2, title: 'bbbb' }],
+
+            }
+        }]
+    },
     conditionItems: () => {
         return [{ is: 'a-input', name: 'name', label: '用户名' }];
     },
@@ -254,8 +268,8 @@ const u = defineU({
         return data;
     },
     // formProps: { labelCol: { span: 2 } },
-    async done(formData,row) {
-        const { data, status } = await http.put('/user/'+row[primaryKey], formData);
+    async done(formData, row) {
+        const { data, status } = await http.put('/user/' + row[primaryKey], formData);
         return [200 === status, data.msg];
     },
 
@@ -278,8 +292,8 @@ const d = defineD({
     },
 });
 
-function config(){
-  message.success('自定义按钮')
+function config() {
+    message.success('自定义按钮')
 }
 
 function getContainer() {
@@ -304,8 +318,8 @@ function getContainer() {
 
                 <template #row-buttons-before>
                     <a-button type="link" @click="config">
-                      <tool-outlined/>
-                    配置</a-button>
+                        <tool-outlined />
+                        配置</a-button>
                 </template>
             </crud>
         </div>

@@ -2,7 +2,6 @@
 import { CloudDownloadOutlined, UpOutlined, DownOutlined } from '@ant-design/icons-vue';
 import { cloneDeep } from 'lodash';
 import { ref, reactive, watch, computed, onBeforeMount, type PropType } from 'vue';
-import { toggleFull } from 'be-full';
 import { message } from 'ant-design-vue';
 import * as xlsx from 'xlsx';
 import ColumnSort from '@/Crud/ColumnSort.vue';
@@ -62,9 +61,22 @@ onBeforeMount(async () => {
   }
 });
 
-// 筛选
+// 顶部筛选
 const conditionFormRef = ref<typeof NForm>();
-const conditionFormData = ref({});
+const conditionFormData = ref<KV>({});
+
+
+// 左侧快捷筛选条件
+const quickConditionFormRef = ref<typeof NForm>();
+const quickConditionFormData = ref<KV>({});
+watch(quickConditionFormData,quickConditionFormData=>{
+  for(const key in quickConditionFormData){
+    conditionFormData.value[key] = quickConditionFormData[key]
+  }
+  getTableData()
+},{deep:true})
+
+
 // 是否显示更多筛选条件
 const isShowMoreCondition = ref(false);
 watch(isShowMoreCondition, () => {
@@ -125,9 +137,9 @@ function onPageSizeChange(current: number, size: number) {
 
 // 默认展开低一层
 const expandedRowKeys = ref<string[]>([]);
-const {primaryKey} = props
-function expandedRow(list:KV[]){
-  list.forEach(row=>{
+const { primaryKey } = props
+function expandedRow(list: KV[]) {
+  list.forEach(row => {
     expandedRowKeys.value.push(row[primaryKey]);
   })
 }
@@ -137,7 +149,7 @@ function expandedRow(list:KV[]){
 // 并加载数据
 async function reset() {
   await conditionFormRef.value?.reset();
-  
+  await quickConditionFormRef.value?.reset();
   getTableData();
 }
 
@@ -163,6 +175,9 @@ async function getTableData() {
     isTableLoading.value = false;
   }
 }
+// quickConditionNames
+
+
 watch([pageCurrent, pageSize], getTableData, { immediate: true });
 
 // ========= 删除 =========
@@ -255,8 +270,6 @@ async function exportExcelFile() {
   xlsx.writeFile(book, 'data.xlsx', { bookType: 'xlsx', type: 'binary' });
 }
 // const = useColumnSetting();
-
-
 </script>
 
 <template>
@@ -276,23 +289,14 @@ async function exportExcelFile() {
     <!-- 新增&导出按钮 -->
     <div class="mb-2 d-flex align-items-center" style="column-gap: 8px">
       <!-- 批量操作 -->
-      <a-button v-if="c" :loading="isAddFormLoading" type="primary" @click="showAddForm"
-        ><plus-outlined />新建</a-button
-      >
+      <a-button v-if="c" :loading="isAddFormLoading" type="primary" @click="showAddForm"><plus-outlined />新建</a-button>
 
       <!-- 导出表格 -->
       <a-button v-if="r.exportExcel" type="success" @click="exportExcelFile"><cloud-download-outlined />导出</a-button>
 
-      <a-popconfirm
-        v-if="void 0 !== d"
-        title="确定要删除吗?"
-        ok-text="确定"
-        cancel-text="取消"
-        @confirm="remove(selectedRowKeys)"
-      >
-        <a-button class="ml-1" v-show="selectedRowKeys.length > 0" type="primary" ghost danger
-          >批量删除({{ selectedRowKeys.length }}条)</a-button
-        >
+      <a-popconfirm v-if="void 0 !== d" title="确定要删除吗?" ok-text="确定" cancel-text="取消" @confirm="remove(selectedRowKeys)">
+        <a-button class="ml-1" v-show="selectedRowKeys.length > 0" type="primary" ghost danger>批量删除({{
+          selectedRowKeys.length }}条)</a-button>
       </a-popconfirm>
       <p class="flex-1" align="right">
         <a-space :size="16">
@@ -305,16 +309,11 @@ async function exportExcelFile() {
 
           <!-- 列密度 -->
           <a-tooltip title="表格尺寸">
-            <a-radio-group
-              v-model:value="tableSize"
-              size="small"
-              option-type="button"
-              :options="[
+            <a-radio-group v-model:value="tableSize" size="small" option-type="button" :options="[
                 { label: '宽松', value: 'default' },
                 { label: '中等', value: 'middle' },
                 { label: '紧凑', value: 'small' },
-              ]"
-            />
+              ]" />
           </a-tooltip>
 
           <!-- <a-tooltip title="全屏">
@@ -324,58 +323,56 @@ async function exportExcelFile() {
       </p>
     </div>
 
-    <!-- 筛选条件 -->
-    <n-form
-      ref="conditionFormRef"
-      v-model="conditionFormData"
-      v-if="void 0 !== r.conditionItems"
-      :items="r.conditionItems"
-      layout="inline"
-      :label-col="{ span: 5 }"
-    >
-      <template #after>
-        <a-form-item>
-          <a-space>
-            <a-button :loading="isTableLoading" @click="reset">重置</a-button>
-            <a-button type="primary" :loading="isTableLoading" @click="getTableData"><search-outlined />查询</a-button>
-            <a-button v-if="hasShowMore" @click="isShowMoreCondition = !isShowMoreCondition" type="link">
-              <template v-if="isShowMoreCondition"><up-outlined />收起</template>
-              <template v-else><down-outlined />展开</template>
-            </a-button>
-          </a-space>
-        </a-form-item>
-      </template>
-    </n-form>
-    <!-- 表格数据 -->
-    <a-table
-      bordered
-      :loading="isTableLoading"
-      :columns="columnConfig"
-      :dataSource="dataSouce"
-      v-model:expandedRowKeys="expandedRowKeys"
-      v-bind="otherTableProps"
-    >
-      <template #bodyCell="{ column, record }">
-        <template v-if="column.dataIndex === 'operation' || column.key === 'operation'">
-          <slot name="row-buttons-before" v-bind="record"></slot>
+    <section class="d-flex">
+      <div>
+        <a-card class="mr-2">
+          {{ quickConditionFormData }}
+          <n-form ref="quickConditionFormRef" v-model="quickConditionFormData" v-if="void 0 !== r.quickConditionItems"
+            :items="r.quickConditionItems">
+          </n-form>
+        </a-card>
 
-          <a-button v-if="r.getOne" type="link" @click="showOne(record)"><eye-outlined />查看</a-button>
+      </div>
 
-          <a-button v-if="void 0 !== u" type="link" size="small" @click="showEditForm(record)">
-            <edit-outlined />编辑</a-button
-          >
-          <a-popconfirm
-            v-if="void 0 !== d"
-            title="确定要删除吗?"
-            ok-text="确定"
-            cancel-text="取消"
-            @confirm="remove([record[primaryKey]], record)"
-          >
-            <a-button type="link" size="small"><delete-outlined />删除</a-button>
-          </a-popconfirm>
-        </template>
-      </template>
-    </a-table>
+      <div>
+        <!-- 筛选条件 -->
+        <n-form ref="conditionFormRef" v-model="conditionFormData" v-if="void 0 !== r.conditionItems"
+          :items="r.conditionItems" layout="inline" :label-col="{ span: 5 }">
+          <template #after>
+            <a-form-item>
+              <a-space>
+                <a-button :loading="isTableLoading" @click="reset">重置</a-button>
+                <a-button type="primary" :loading="isTableLoading" @click="getTableData"><search-outlined />查询</a-button>
+                <a-button v-if="hasShowMore" @click="isShowMoreCondition = !isShowMoreCondition" type="link">
+                  <template v-if="isShowMoreCondition"><up-outlined />收起</template>
+                  <template v-else><down-outlined />展开</template>
+                </a-button>
+              </a-space>
+            </a-form-item>
+          </template>
+        </n-form>
+        <!-- 表格数据 -->
+        <a-table bordered :loading="isTableLoading" :columns="columnConfig" :dataSource="dataSouce"
+          v-model:expandedRowKeys="expandedRowKeys" v-bind="otherTableProps">
+          <template #bodyCell="{ column, record }">
+            <template v-if="column.dataIndex === 'operation' || column.key === 'operation'">
+              <slot name="row-buttons-before" v-bind="record"></slot>
+
+              <a-button v-if="r.getOne" type="link" @click="showOne(record)"><eye-outlined />查看</a-button>
+
+              <a-button v-if="void 0 !== u" type="link" size="small" @click="showEditForm(record)">
+                <edit-outlined />编辑</a-button>
+              <a-popconfirm v-if="void 0 !== d" title="确定要删除吗?" ok-text="确定" cancel-text="取消"
+                @confirm="remove([record[primaryKey]], record)">
+                <a-button type="link" size="small"><delete-outlined />删除</a-button>
+              </a-popconfirm>
+            </template>
+          </template>
+        </a-table>
+      </div>
+    </section>
+
+
   </a-card>
 </template>
 
