@@ -205,11 +205,11 @@ const c = defineC({
         const { status, data } = await http.post('/user', formData);
         return [200 === status, data.msg];
     },
-    formProps: { labelCol: { span: 2 } },
+    formProps: { labelCol: { span: 3 } },
 
     items: () => [
-        { is: 'a-input', name: 'userName', label: ',m理解的发了个', rules: [{ required: true, message: '必填项' }] },
-        { is: 'a-input', name: 'realName', label: '姓名' },
+        { is: 'a-input', name: 'userName', label: '账号', span: 8, rules: [{ required: true, message: '必填项' }] },
+        { is: 'a-input', name: 'realName', label: '姓名', span: 8, },
         {
             is: 'a-radio-group',
             name: 'sex',
@@ -258,6 +258,7 @@ const c = defineC({
 });
 
 const u = defineU({
+    formProps: { labelCol: { span: 5 } },
     drawerProps: {
         getContainer,
         style: { position: 'absolute' },
@@ -302,6 +303,7 @@ function getContainer() {
 </script>
 
 <template>
+
     <a-config-provider :locale="zhCN" :getPopupContainer="getContainer">
         <h1 class="title" align="center">crud-vue</h1>
         <p align="center">

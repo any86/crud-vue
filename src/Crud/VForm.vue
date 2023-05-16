@@ -140,21 +140,26 @@ defineExpose({ formRef, reset, toggleItem });
   <a-form v-if="!isLoading && void 0 !== formData" ref="formRef" :model="formData" :labelCol="labelCol"
     v-bind="formProps">
     <!-- {{ formData }} -->
-    <template v-for="item in formItems" :key="item.name">
-      <a-form-item v-if="!('toggle' in item && !isShowFormItem)" colon :id="item.name" v-bind="item">
-        <!-- {{formData[item.name]}} -->
+    <a-row :gutter="24">
+      <template v-for="item in formItems" :key="item.name">
+        <a-col :span="12">
+          <a-form-item v-if="!('toggle' in item && !isShowFormItem)" colon :id="item.name" v-bind="item">
+            <!-- {{formData[item.name]}} -->
 
-        <!-- 表单类的组件 -->
-        <component v-if="item.name" :is="item.is" v-bind="{
-          allowClear: true,
-          placeholder: `请输入${item.label || ''}`,
-          ...item.props,
-        }" v-model:[getVModelName(item)]="formData[item.name as string]">
-        </component>
-        <!-- 纯显示组件 -->
-        <component v-else :is="item.is" v-bind="item.props"></component>
-      </a-form-item>
-    </template>
+            <!-- 表单类的组件 -->
+            <component v-if="item.name" :is="item.is" v-bind="{
+                allowClear: true,
+                placeholder: `请输入${item.label || ''}`,
+                ...item.props,
+              }" v-model:[getVModelName(item)]="formData[item.name as string]">
+            </component>
+            <!-- 纯显示组件 -->
+            <component v-else :is="item.is" v-bind="item.props"></component>
+          </a-form-item>
+        </a-col>
+      </template>
+    </a-row>
+
     <slot name="after"></slot>
   </a-form>
 </template>

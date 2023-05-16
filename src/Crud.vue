@@ -69,12 +69,12 @@ const conditionFormData = ref<KV>({});
 // 左侧快捷筛选条件
 const quickConditionFormRef = ref<typeof NForm>();
 const quickConditionFormData = ref<KV>({});
-watch(quickConditionFormData,quickConditionFormData=>{
-  for(const key in quickConditionFormData){
+watch(quickConditionFormData, quickConditionFormData => {
+  for (const key in quickConditionFormData) {
     conditionFormData.value[key] = quickConditionFormData[key]
   }
   getTableData()
-},{deep:true})
+}, { deep: true })
 
 
 // 是否显示更多筛选条件
@@ -98,7 +98,7 @@ function onTableSelectChange(keys: string[]) {
 const pageCurrent = ref(1);
 const pageSize = ref(10);
 const pageCount = ref(0);
-const isTableLoading = ref(true);
+const isTableLoading = ref(false);
 const dataSouce = ref<tableData['list']>([]);
 const pagination = computed(() => ({
   total: pageCount.value,
@@ -155,6 +155,10 @@ async function reset() {
 
 // 加载数据
 async function getTableData() {
+  // 快捷条件选中情况下
+  // 此时按重置按钮会触发2次, 
+  // 所以此处做统一限制
+  if (isTableLoading.value) return;
   isTableLoading.value = true;
   try {
     // 清空已选行
@@ -326,10 +330,12 @@ async function exportExcelFile() {
     <section class="d-flex">
       <div>
         <a-card class="mr-2">
-          {{ quickConditionFormData }}
-          <n-form ref="quickConditionFormRef" v-model="quickConditionFormData" v-if="void 0 !== r.quickConditionItems"
-            :items="r.quickConditionItems">
-          </n-form>
+          <a-spin :spinning="isTableLoading">
+            {{ quickConditionFormData }}
+            <n-form ref="quickConditionFormRef" v-model="quickConditionFormData" v-if="void 0 !== r.quickConditionItems"
+              :items="r.quickConditionItems" layout="vertical" :label-col="{ span: 24 }">
+            </n-form>
+          </a-spin>
         </a-card>
 
       </div>
